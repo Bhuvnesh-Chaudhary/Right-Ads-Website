@@ -275,7 +275,7 @@ p {
     width: 100%;
     height: 80px;
     z-index: 1000;
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(102, 156, 238, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(226, 232, 240, 0.6);
@@ -349,10 +349,14 @@ p {
    ========================================================================== */
 .hero-section {
     position: relative;
-    padding-top: 160px; /* Offset for fixed header */
-    padding-bottom: 100px;
+    padding-top: 110px; /* 🛠️ Spacing kam ki taaki header ke baad content turant dikhe */
+    padding-bottom: 40px; /* 🛠️ Niche ki spacing kam ki taaki scroll na karna pade */
     background-color: var(--color-bg-light);
     overflow: hidden;
+    border-bottom: 2px solid var(--color-border); 
+    min-height: calc(100vh - 80px); /* 🌟 Poora section screen ki height ke hisab se automatic adjust hoga */
+    display: flex;
+    align-items: center;
 }
 
 /* Optional abstract background glow */
@@ -370,65 +374,94 @@ p {
 
 .hero-split-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: 1.2fr 0.8fr; /* 🛠️ Left text area ko thoda broad kiya taaki horizontal layout stretch ho */
+    gap: 2rem; /* 🛠️ Gap kam kiya taaki side-by-side tight fit ho */
     align-items: center;
     position: relative;
     z-index: 1;
+    width: 100%;
+}
+
+/* 🌟 Is selector se left text block bina layout tode ek horizontal container ki tarah flow karega */
+.hero-split-layout > div:first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .hero-subheading-text {
-    font-size: 1.25rem;
-    margin-bottom: 2.5rem;
-    max-width: 90%;
+    font-size: 1.15rem; /* 🛠️ Text size halka sa perfect kiya */
+    margin-bottom: 1.5rem; /* 🛠️ Gap reduce kiya */
+    max-width: 95%; /* 🛠️ Width badhayi taaki horizontal spread ho */
+    line-height: 1.5;
 }
 
 .hero-action-group {
     display: flex;
     gap: 1rem;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem; /* 🛠️ Niche stats ke beech ka gap maintain kiya */
 }
 
+/* Stats Container Grid */
+/* 🛠️ 1. Grid hata kar Flexbox lagaya taaki cards ko left side me restrict kar sakein */
 .hero-statistics-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    border-top: 1px solid var(--color-border);
-    padding-top: 2rem;
-}
-
-.stat-card-item {
     display: flex;
-    flex-direction: column;
+    flex-wrap: nowrap;     /* Ek hi line me rahenge */
+    gap: 0.5rem;           /* Cards ke beech ka gap ekdum minimum (8px) kar diya */
+    padding-top: 1rem;
+    max-width: 420px;      /* 🌟 CRITICAL CHANGED: Poore stats block ki chaudai fixed kar di taaki ye fail kar image tak na jaye */
+    width: 100%;
 }
 
+/* 🛠️ 2. Cards ko tight horizontal frame me fix kiya */
+.stat-card-item {
+    flex: 1;               /* Sabko barabar jagah milegi */
+    min-width: 0;          /* Text overflow ya card stretch block karega */
+    background: var(--color-bg-white, #ffffff); 
+    padding: 0.5rem 0.25rem; /* 🌟 CHANGED: Padding aur tight kar di (Top/Bottom 8px, Left/Right 4px) */
+    border: 1px solid var(--color-border);     
+    border-radius: 8px;                  
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.02); 
+    text-align: center;                        
+}
+
+/* 🛠️ 3. Numbers ko ekdum sleek font-size diya */
 .stat-metric-number {
-    font-size: 2rem;
+    font-size: 1.25rem;    /* 🌟 CHANGED: Size aur kam kiya (Ab ekdum tight fit ho jayega) */
     font-weight: 800;
     color: var(--color-text-main);
     line-height: 1;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.15rem;
 }
 
+/* 🛠️ Label ko chhota aur crisp kiya */
 .stat-metric-label {
-    font-size: 0.875rem;
+    font-size: 0.7rem;     /* 🌟 CHANGED: Text ekdum small aur professional clean layout me */
     color: var(--color-text-p);
     font-weight: 500;
+    white-space: nowrap;   /* Text break hokar niche nahi bhagega */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Agar text bada hoga toh automatic dot-dot (...) lag jayega, layout nahi tootega */
 }
 
 .hero-illustration-placeholder {
     background: var(--color-bg-white);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-xl);
-    padding: 1rem;
+    padding: 0.75rem;
     border: 1px solid rgba(226, 232, 240, 0.5);
     animation: floating 6s ease-in-out infinite;
+    max-height: 450px; /* 🛠️ Image zone ko constrain kiya taaki layout compress rahe */
+    display: flex;
+    align-items: center;
 }
 
 .hero-media-image {
     border-radius: var(--radius-md);
-    width: 100%;
+    width: 380px; /* 450 se kam */
     height: auto;
+    object-fit: contain;
+    transform: translateX(100px); /* right shift */
 }
 
 /* ==========================================================================
@@ -1748,3 +1781,21 @@ p {
 
 .btn-submit-quote { background: #25d366; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 13.5px; font-weight: 700; width: 100%; margin-top: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2); }
 .btn-submit-quote:hover { background: #22c35e; }
+.hero-bg-image{
+    position: absolute;
+
+    top: 55%;
+    right: -120px;   /* image aur right shift hogi */
+
+    width: 700px;    /* size control */
+
+    height: auto;
+
+    transform: translateY(-50%);
+
+    opacity: 1;      /* full colors */
+
+    z-index: 1;
+
+    pointer-events: none;
+}

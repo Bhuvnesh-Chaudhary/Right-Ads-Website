@@ -167,19 +167,55 @@
 
     </div>
 </div>
+<audio id="scroll-sound" src="https://upload.wikimedia.org/wikipedia/commons/4/47/Sound_Effect_-_Tick.mp3" preload="auto"></audio>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Code check karega ki audio element page par hai ya nahi
+        const scrollAudio = document.getElementById("scroll-sound");
+        let isPlaying = false;
+
+        if (scrollAudio) {
+            scrollAudio.volume = 0.2; // Volume ekdum clean aur soft (20%) rakha hai
+
+            // 🌟 Jaise hi user mouse wheel ghumaega ya touch scroll karega
+            window.addEventListener("scroll", function () {
+                
+                // Debounce logic: Baar-baar rapid clicks/sounds ko block karne ke liye
+                if (!isPlaying) {
+                    isPlaying = true;
+                    
+                    // Audio play call
+                    scrollAudio.play()
+                        .then(() => {
+                            // Sound khatam hote hi naye scroll feedback ke liye refresh hoga
+                            setTimeout(() => {
+                                isPlaying = false;
+                            }, 350); // 350ms ka safe gap taaki machine gun na baje
+                        })
+                        .catch(e => {
+                            console.log("Audio playing requires first touch layout:", e);
+                            isPlaying = false;
+                        });
+                }
+            }, { passive: true });
+        }
+    });
+</script>
 <body>
+    
 
     <!-- ================================================ -->
     <!-- NAVBAR / HEADER SECTION                          -->
     <!-- ================================================ -->
-    <header class="site-header navigation-bar-container">
+    <header class="site-header navigation-bar-container navbar">
         <div class="header-container site-wrapper">
             
             <!-- Agency Logo -->
 
 <div class="nav-container" style="display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; margin: 0 auto; padding: 25px 20px; gap: 40px;">
     
-    <a href="index.html" style="display: flex; align-items: center; gap: 15px; text-decoration: none; color: #fff; font-weight: bold; font-size: 26px; white-space: nowrap; flex-shrink: 0;">
+    <a href="index.html" style="display: flex; align-items: center; gap: 15px; text-decoration: none; color: #0d7bad; font-weight: bold; font-size: 26px; white-space: nowrap; flex-shrink: 0;">
         <span style="letter-spacing: 0.5px;">Welcome To</span>
         <img src="images/logo.jpg" alt="Logo" style="height: 80px; width: auto; object-fit: contain; border-radius: 6px;">
     </a>
@@ -239,7 +275,7 @@
                 <a href="#contact" class="btn btn-secondary nav-btn-call">Call Now</a>
                 <a href="#contact" class="btn btn-primary nav-btn-proposal">Get Proposal</a>
             </div>
-
+            
         </div>
     </header>
 
@@ -252,6 +288,8 @@
         <!-- HERO SECTION                                     -->
         <!-- ================================================ -->
        <section id="home" class="hero-section">
+        
+        
     <div class="site-wrapper hero-split-layout">
         
         <div class="hero-content-block hero-slider">
@@ -267,7 +305,7 @@
                 <div class="hero-statistics-grid">
     <div class="stat-card-item">
     <span class="stat-metric-number counter-value">500</span><span class="stat-metric-number">+</span>
-    <span class="stat-metric-label" style="color: #475569 !important;">Global Clients</span>
+    <span class="stat-metric-label" style="color: #053c8a !important;">Global Clients</span>
 </div>
     <div class="stat-card-item">
         <span class="stat-metric-number counter-value">11</span><span class="stat-metric-number">+</span>
@@ -283,20 +321,10 @@
         <span class="stat-metric-number counter-value">1000</span><span class="stat-metric-number">+</span>
     <span class="stat-metric-label" style="color: #475569 !important;">Projects Completed</span>
     </div>
-</div>
-            </div>
-        </div>
-
-    
-        
-       <div class="hero-illustration-placeholder" style="width: 100%; display: flex; justify-content: center; align-items: center;">
-    
-    <div style="width: 100%; max-width: 750px; height: auto; display: flex; align-items: center; justify-content: center; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);">
-        
-        <img src="images/banner.png" alt="Digital Growth Overview" style="width: 100%; height: auto; display: block; object-fit: contain; padding: 5px;">
-             
-    </div>
-</div>
+<img src="images/ChatGPT Image Jun 17, 2026, 07_58_03 PM.png"
+     class="hero-bg-image"
+     alt="Digital Marketing">
+     
 </div>
 </div>
 
@@ -318,124 +346,112 @@
 
                 <div class="services-cards-grid-layout">
                     
-                    <!-- Service 1: SEO -->
                     <article class="service-card-item item-marketing" id="service-seo">
                         <div class="service-icon-wrapper">
                             <span class="fallback-icon">🔍</span>
                         </div>
                         <h3 class="service-card-title">Search Engine Optimization</h3>
                         <p class="service-card-description">Dominate organic search results. Our advanced technical SEO frameworks, strategic content clusters, and authoritative link building accelerate qualified inbound funnels.</p>
-                        <a href="#contact" class="service-action-link" aria-label="Learn more about Search Engine Optimization">Learn More <span aria-hidden="true">&rarr;</span></a>
+                        <a href="service-detail.html?service=seo" class="service-action-link" aria-label="Learn more about Search Engine Optimization">Learn More <span aria-hidden="true">&rarr;</span></a>
                     </article>
 
-                    <!-- Service 2: Google Ads -->
                     <article class="service-card-item item-marketing" id="service-ppc">
                         <div class="service-icon-wrapper">
                             <span class="fallback-icon">🎯</span>
                         </div>
                         <h3 class="service-card-title">Google Ads (PPC)</h3>
                         <p class="service-card-description">Maximize return on ad spend (ROAS). We design data-driven Search, Display, and Performance Max campaigns backed by absolute conversion tracking analytics.</p>
-                        <a href="#contact" class="service-action-link" aria-label="Learn more about Google Ads">Learn More <span aria-hidden="true">&rarr;</span></a>
+                        <a href="service-detail.html?service=ppc" class="service-action-link" aria-label="Learn more about Google Ads">Learn More <span aria-hidden="true">&rarr;</span></a>
                     </article>
 
-                    <!-- Service 3: SMM -->
                     <article class="service-card-item item-marketing" id="service-smm">
                         <div class="service-icon-wrapper">
                             <span class="fallback-icon">📱</span>
                         </div>
                         <h3 class="service-card-title">Social Media Marketing</h3>
                         <p class="service-card-description">Build highly profitable communities. Scaled organic storytelling combined with rigorous paid Meta, LinkedIn, and TikTok advertising solutions.</p>
-                        <a href="#contact" class="service-action-link" aria-label="Learn more about Social Media Marketing">Learn More <span aria-hidden="true">&rarr;</span></a>
+                        <a href="service-detail.html?service=smm" class="service-action-link" aria-label="Learn more about Social Media Marketing">Learn More <span aria-hidden="true">&rarr;</span></a>
                     </article>
 
-                    <!-- Service 4: Web Dev -->
                     <article class="service-card-item item-development" id="service-webdev">
                         <div class="service-icon-wrapper">
                             <span class="fallback-icon">💻</span>
                         </div>
                         <h3 class="service-card-title">Website Development</h3>
                         <p class="service-card-description">High-conversion websites inspired by Framer and Webflow mechanics. Fast, fully responsive, and highly secure digital products customized to convert traffic.</p>
-                        <a href="#contact" class="service-action-link" aria-label="Learn more about Website Development">Learn More <span aria-hidden="true">&rarr;</span></a>
+                        <a href="service-detail.html?service=webdev" class="service-action-link" aria-label="Learn more about Website Development">Learn More <span aria-hidden="true">&rarr;</span></a>
                     </article>
 
-                    <!-- Service 5: Graphic Design -->
                     <article class="service-card-item item-creative" id="service-design">
                         <div class="service-icon-wrapper">
                             <span class="fallback-icon">🎨</span>
                         </div>
                         <h3 class="service-card-title">Graphic Design</h3>
                         <p class="service-card-description">Premium marketing collaterals and high-impact visual design assets created intentionally to grab user attention across competitive market landscapes.</p>
-                        <a href="#contact" class="service-action-link" aria-label="Learn more about Graphic Design">Learn More <span aria-hidden="true">&rarr;</span></a>
+                        <a href="service-detail.html?service=design" class="service-action-link" aria-label="Learn more about Graphic Design">Learn More <span aria-hidden="true">&rarr;</span></a>
                     </article>
 
-                    <!-- Service 6: Branding -->
                     <article class="service-card-item item-creative" id="service-branding">
                         <div class="service-icon-wrapper">
                             <span class="fallback-icon">✨</span>
                         </div>
                         <h3 class="service-card-title">Branding & Identity</h3>
                         <p class="service-card-description">Develop memorable premium identities. Complete corporate brand architectures including logos, typography guides, tone guidelines, and operational playbooks.</p>
-                        <a href="#contact" class="service-action-link" aria-label="Learn more about Branding and Identity">Learn More <span aria-hidden="true">&rarr;</span></a>
+                        <a href="service-detail.html?service=branding" class="service-action-link" aria-label="Learn more about Branding and Identity">Learn More <span aria-hidden="true">&rarr;</span></a>
                     </article>
 
-                    <!-- Service 7: GMB -->
                     <article class="service-card-item item-marketing" id="service-gmb">
                         <div class="service-icon-wrapper">
                             <span class="fallback-icon">📍</span>
                         </div>
                         <h3 class="service-card-title">Google My Business</h3>
                         <p class="service-card-description">Capture local market dominance. Comprehensive map ranking optimizations, local citation building, and review acquisition frameworks.</p>
-                        <a href="#contact" class="service-action-link" aria-label="Learn more about Google My Business optimization">Learn More <span aria-hidden="true">&rarr;</span></a>
+                        <a href="service-detail.html?service=gmb" class="service-action-link" aria-label="Learn more about Google My Business optimization">Learn More <span aria-hidden="true">&rarr;</span></a>
                     </article>
 
-                    <!-- Service 8: Email Marketing -->
                     <article class="service-card-item item-marketing" id="service-email">
                         <div class="service-icon-wrapper">
                             <span class="fallback-icon">✉️</span>
                         </div>
                         <h3 class="service-card-title">Email Marketing</h3>
                         <p class="service-card-description">Automate lifecycle revenue pipelines. Tailored customer segment flows, professional newsletter designs, and personalized remarketing sequences.</p>
-                        <a href="#contact" class="service-action-link" aria-label="Learn more about Email Marketing">Learn More <span aria-hidden="true">&rarr;</span></a>
+                        <a href="service-detail.html?service=email" class="service-action-link" aria-label="Learn more about Email Marketing">Learn More <span aria-hidden="true">&rarr;</span></a>
                     </article>
 
-                    <!-- Service 9: ISO Certification -->
                     <article class="service-card-item item-certificate" id="certificates">
                         <div class="service-icon-wrapper">
                             <span class="fallback-icon">📜</span>
                         </div>
                         <h3 class="service-card-title">ISO Certification</h3>
                         <p class="service-card-description">Establish global standard authority. End-to-end consulting, documentation, and compliance auditing for ISO 9001, 27001, 14001, and more corporate standards.</p>
-                        <a href="#contact" class="service-action-link" aria-label="Learn more about ISO Certification consulting">Learn More <span aria-hidden="true">&rarr;</span></a>
+                        <a href="service-detail.html?service=iso" class="service-action-link" aria-label="Learn more about ISO Certification consulting">Learn More <span aria-hidden="true">&rarr;</span></a>
                     </article>
 
-                    <!-- Service 10: MSME Registration -->
                     <article class="service-card-item item-certificate" id="service-msme">
                         <div class="service-icon-wrapper">
                             <span class="fallback-icon">🏢</span>
                         </div>
                         <h3 class="service-card-title">MSME Registration</h3>
                         <p class="service-card-description">Unlock sovereign government subsidies, priority credit schemes, and corporate procurement benefits with verified legal Udyam registrations.</p>
-                        <a href="#contact" class="service-action-link" aria-label="Learn more about MSME Registration">Learn More <span aria-hidden="true">&rarr;</span></a>
+                        <a href="service-detail.html?service=msme" class="service-action-link" aria-label="Learn more about MSME Registration">Learn More <span aria-hidden="true">&rarr;</span></a>
                     </article>
 
-                    <!-- Service 11: NSIC Registration -->
                     <article class="service-card-item item-certificate" id="service-nsic">
                         <div class="service-icon-wrapper">
                             <span class="fallback-icon">🏛️</span>
                         </div>
                         <h3 class="service-card-title">NSIC Registration</h3>
                         <p class="service-card-description">Empower your manufacturing or commercial enterprise for large tenders with automated Single Point Registration System (SPRS) certification assistance.</p>
-                        <a href="#contact" class="service-action-link" aria-label="Learn more about NSIC Registration">Learn More <span aria-hidden="true">&rarr;</span></a>
+                        <a href="service-detail.html?service=nsic" class="service-action-link" aria-label="Learn more about NSIC Registration">Learn More <span aria-hidden="true">&rarr;</span></a>
                     </article>
 
-                    <!-- Service 12: Toll Free Services -->
                     <article class="service-card-item item-infrastructure" id="service-tollfree">
                         <div class="service-icon-wrapper">
                             <span class="fallback-icon">📞</span>
                         </div>
                         <h3 class="service-card-title">Toll Free Services</h3>
                         <p class="service-card-description">Instant consumer trust architecture. High-performance cloud-managed IVR infrastructure, virtual 1800-series numbers, and comprehensive call analytics.</p>
-                        <a href="#contact" class="service-action-link" aria-label="Learn more about Toll Free Services">Learn More <span aria-hidden="true">&rarr;</span></a>
+                        <a href="service-detail.html?service=tollfree" class="service-action-link" aria-label="Learn more about Toll Free Services">Learn More <span aria-hidden="true">&rarr;</span></a>
                     </article>
 
                 </div>
@@ -502,81 +518,74 @@
         <!-- PORTFOLIO / OUR BEST WORK SECTION                -->
         <!-- ================================================ -->
         <section id="portfolio" class="portfolio-section layout-section-padding white-theme-bg">
-            <div class="portfolio-container site-wrapper">
-                
-                <header class="section-heading-block centering-text">
-                    <span class="section-eyebrow-tag">Case Studies</span>
-                    <h2 class="section-main-title">Our Best Work</h2>
-                    <p class="section-description-text">Explore detailed real-world data points demonstrating how we scale commercial revenue metrics across B2B and B2C landscapes.</p>
-                </header>
+    <div class="portfolio-container site-wrapper">
+        
+        <header class="section-heading-block centering-text">
+            <span class="section-eyebrow-tag">Case Studies</span>
+            <h2 class="section-main-title">Our Best Work</h2>
+            <p class="section-description-text">Explore detailed real-world data points demonstrating how we scale commercial revenue metrics across B2B and B2C landscapes.</p>
+        </header>
 
-                <div class="portfolio-grid-layout">
-                    
-                    <!-- Project 1 -->
-                    <article class="project-grid-card">
-                        <div class="project-media-wrapper">
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='100%' height='100%' fill='%23EEEEF2'/><text x='50%' y='50%' font-family='sans-serif' font-size='14' fill='%23777' text-anchor='middle'>Project Case Study Mockup</text></svg>" alt="E-Commerce Performance Strategy Overview" class="project-thumbnail-image" width="400" height="300">
-                        </div>
-                        <div class="project-details-block">
-                            <span class="project-industry-tag">E-Commerce Retailing</span>
-                            <h3 class="project-card-title">Apex Apparel Scale</h3>
-                            <p class="project-result-summary">Engineered full-funnel Paid Meta framework resulting in a 4.6x validated ROAS and a 180% surge in net quarterly revenue.</p>
-                        </div>
-                    </article>
-
-                    <!-- Project 2 -->
-                    <article class="project-grid-card">
-                        <div class="project-media-wrapper">
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='100%' height='100%' fill='%23EEEEF2'/><text x='50%' y='50%' font-family='sans-serif' font-size='14' fill='%23777' text-anchor='middle'>SaaS Product Design Mockup</text></svg>" alt="B2B SaaS Growth Optimization Overview" class="project-thumbnail-image" width="400" height="300">
-                        </div>
-                        <div class="project-details-block">
-                            <span class="project-industry-tag">B2B SaaS Technology</span>
-                            <h3 class="project-card-title">CloudFlow Inbound Funnels</h3>
-                            <p class="project-result-summary">Re-designed technical SEO architecture and product positioning, generating a 340% increase in monthly product demo bookings.</p>
-                        </div>
-                    </article>
-
-                    <!-- Project 3 -->
-                    <article class="project-grid-card">
-                        <div class="project-media-wrapper">
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='100%' height='100%' fill='%23EEEEF2'/><text x='50%' y='50%' font-family='sans-serif' font-size='14' fill='%23777' text-anchor='middle'>FinTech Platform Mockup</text></svg>" alt="Fintech Lead Acquisition Overview" class="project-thumbnail-image" width="400" height="300">
-                        </div>
-                        <div class="project-details-block">
-                            <span class="project-industry-tag">FinTech Services</span>
-                            <h3 class="project-card-title">SecureVest Google Search Campaigns</h3>
-                            <p class="project-result-summary">Optimized intent-focused Google Search bidding frameworks, reducing cost-per-acquisition (CPA) metrics by 42% in 90 days.</p>
-                        </div>
-                    </article>
-
-                    <!-- Project 4 -->
-                    <article class="project-grid-card">
-                        <div class="project-media-wrapper">
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='100%' height='100%' fill='%23EEEEF2'/><text x='50%' y='50%' font-family='sans-serif' font-size='14' fill='%23777' text-anchor='middle'>Healthcare Platform Showcase</text></svg>" alt="Healthcare Brand Authority Architecture Overview" class="project-thumbnail-image" width="400" height="300">
-                        </div>
-                        <div class="project-details-block">
-                            <span class="project-industry-tag">Healthcare & Medical</span>
-                            <h3 class="project-card-title">OmniHealth Local Optimization</h3>
-                            <p class="project-result-summary">Executed multisite Google My Business map strategy, driving 15,000+ incremental monthly physical patient bookings.</p>
-                        </div>
-                    </article>
-
-                    <!-- Project 5 -->
-                    <article class="project-grid-card">
-                        <div class="project-media-wrapper">
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='100%' height='100%' fill='%23EEEEF2'/><text x='50%' y='50%' font-family='sans-serif' font-size='14' fill='%23777' text-anchor='middle'>Real Estate Development Portfolio</text></svg>" alt="Real Estate Performance Engineering Overview" class="project-thumbnail-image" width="400" height="300">
-                        </div>
-                        <div class="project-details-block">
-                            <span class="project-industry-tag">Real Estate Developments</span>
-                            <h3 class="project-card-title">Prestige Horizons High-Value Leads</h3>
-                            <p class="project-result-summary">Deployed automated luxury lead-capture frameworks generating 1,200+ premium verified investors within 6 months.</p>
-                        </div>
-                    </article>
-
+        <div class="portfolio-grid-layout">
+            
+            <article class="project-grid-card">
+                <div class="project-media-wrapper">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&h=450&q=80" alt="E-Commerce Performance Strategy Overview" class="project-thumbnail-image" width="400" height="300" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
-            </div>
-        </section>
+                <div class="project-details-block">
+                    <span class="project-industry-tag">E-Commerce Retailing</span>
+                    <h3 class="project-card-title">Apex Apparel Scale</h3>
+                    <p class="project-result-summary">Engineered full-funnel Paid Meta framework resulting in a 4.6x validated ROAS and a 180% surge in net quarterly revenue.</p>
+                </div>
+            </article>
 
+            <article class="project-grid-card">
+                <div class="project-media-wrapper">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&h=450&q=80" alt="B2B SaaS Growth Optimization Overview" class="project-thumbnail-image" width="400" height="300" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="project-details-block">
+                    <span class="project-industry-tag">B2B SaaS Technology</span>
+                    <h3 class="project-card-title">CloudFlow Inbound Funnels</h3>
+                    <p class="project-result-summary">Re-designed technical SEO architecture and product positioning, generating a 340% increase in monthly product demo bookings.</p>
+                </div>
+            </article>
 
+            <article class="project-grid-card">
+                <div class="project-media-wrapper">
+                    <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&h=450&q=80" alt="Fintech Lead Acquisition Overview" class="project-thumbnail-image" width="400" height="300" style="width: 100%; height: 100%; object-fit: cover;"> alt="Fintech Lead Acquisition Overview" class="project-thumbnail-image" width="400" height="300" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="project-details-block">
+                    <span class="project-industry-tag">FinTech Services</span>
+                    <h3 class="project-card-title">SecureVest Google Search Campaigns</h3>
+                    <p class="project-result-summary">Optimized intent-focused Google Search bidding frameworks, reducing cost-per-acquisition (CPA) metrics by 42% in 90 days.</p>
+                </div>
+            </article>
+
+            <article class="project-grid-card">
+                <div class="project-media-wrapper">
+                    <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=600&h=450&q=80" alt="Healthcare Brand Authority Architecture Overview" class="project-thumbnail-image" width="400" height="300" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="project-details-block">
+                    <span class="project-industry-tag">Healthcare & Medical</span>
+                    <h3 class="project-card-title">OmniHealth Local Optimization</h3>
+                    <p class="project-result-summary">Executed multisite Google My Business map strategy, driving 15,000+ incremental monthly physical patient bookings.</p>
+                </div>
+            </article>
+
+            <article class="project-grid-card">
+                <div class="project-media-wrapper">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&h=450&q=80" alt="Real Estate Performance Engineering Overview" class="project-thumbnail-image" width="400" height="300" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="project-details-block">
+                    <span class="project-industry-tag">Real Estate Developments</span>
+                    <h3 class="project-card-title">Prestige Horizons High-Value Leads</h3>
+                    <p class="project-result-summary">Deployed automated luxury lead-capture frameworks generating 1,200+ premium verified investors within 6 months.</p>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>
         <!-- ================================================ -->
         <!-- TEAM SECTION                                     -->
         <!-- ================================================ -->
@@ -652,98 +661,91 @@
         <!-- CLIENT REVIEWS / TESTIMONIALS SECTION            -->
         <!-- ================================================ -->
         <section id="reviews" class="testimonials-section layout-section-padding white-theme-bg">
-            <div class="testimonials-container site-wrapper">
-                
-                <header class="section-heading-block centering-text">
-                    <span class="section-eyebrow-tag">Social Proof</span>
-                    <h2 class="section-main-title">What Our Clients Say</h2>
-                    <p class="section-description-text">Read authentic feedback from corporate founders and technology executives who trust our performance models.</p>
-                </header>
+    <div class="testimonials-container site-wrapper">
+        
+        <header class="section-heading-block centering-text">
+            <span class="section-eyebrow-tag">Social Proof</span>
+            <h2 class="section-main-title">What Our Clients Say</h2>
+            <p class="section-description-text">Read authentic feedback from corporate founders and technology executives who trust our performance models.</p>
+        </header>
 
-                <div class="testimonials-cards-grid-layout">
-                    
-                    <!-- Review 1 -->
-                    <blockquote class="testimonial-review-card">
-                        <div class="star-rating-indicator" aria-label="5 Star Rating">★★★★★</div>
-                        <p class="testimonial-body-text">"Right Ads completely overhauled our client acquisition pipeline. Within four months, our active organic search traffic surged by 220%, completely reshaping our pipeline dynamics."</p>
-                        <div class="testimonial-author-profile">
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'><circle cx='25' cy='25' r='25' fill='%23DDD'/></svg>" alt="Rajesh Kumar Avatar" class="author-avatar" width="50" height="50">
-                            <div class="author-metadata">
-                                <cite class="author-name">Rajesh Kumar</cite>
-                                <span class="author-company-role">CEO, TechVantage Logistics</span>
-                            </div>
-                        </div>
-                    </blockquote>
-
-                    <!-- Review 2 -->
-                    <blockquote class="testimonial-review-card">
-                        <div class="star-rating-indicator" aria-label="5 Star Rating">★★★★★</div>
-                        <p class="testimonial-body-text">"Their Google Ads approach is incredibly scientific. Vikram and his team reduced our blended customer acquisition costs by 45% while managing to scale our daily budget tiers higher."</p>
-                        <div class="testimonial-author-profile">
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'><circle cx='25' cy='25' r='25' fill='%23DDD'/></svg>" alt="Sarah Jenkins Avatar" class="author-avatar" width="50" height="50">
-                            <div class="author-metadata">
-                                <cite class="author-name">Sarah Jenkins</cite>
-                                <span class="author-company-role">VP of Marketing, ElevateSaaS Inc.</span>
-                            </div>
-                        </div>
-                    </blockquote>
-
-                    <!-- Review 3 -->
-                    <blockquote class="testimonial-review-card">
-                        <div class="star-rating-indicator" aria-label="5 Star Rating">★★★★★</div>
-                        <p class="testimonial-body-text">"We selected Right Ads for our custom web platform engineering and corporate branding. The design standard is world-class, heavily optimized for high functional performance."</p>
-                        <div class="testimonial-author-profile">
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'><circle cx='25' cy='25' r='25' fill='%23DDD'/></svg>" alt="Amit Sharma Avatar" class="author-avatar" width="50" height="50">
-                            <div class="author-metadata">
-                                <cite class="author-name">Amit Sharma</cite>
-                                <span class="author-company-role">Founder, Aura Premium Retail</span>
-                            </div>
-                        </div>
-                    </blockquote>
-
-                    <!-- Review 4 -->
-                    <blockquote class="testimonial-review-card">
-                        <div class="star-rating-indicator" aria-label="5 Star Rating">★★★★★</div>
-                        <p class="testimonial-body-text">"Navigating sovereign registrations like NSIC and MSME was seamless. Their dedicated corporate consulting wing handled our entire audit framework effortlessly."</p>
-                        <div class="testimonial-author-profile">
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'><circle cx='25' cy='25' r='25' fill='%23DDD'/></svg>" alt="Devendra Singh Avatar" class="author-avatar" width="50" height="50">
-                            <div class="author-metadata">
-                                <cite class="author-name">Devendra Singh</cite>
-                                <span class="author-company-role">Managing Director, Bharat Forgings Ltd.</span>
-                            </div>
-                        </div>
-                    </blockquote>
-
-                    <!-- Review 5 -->
-                    <blockquote class="testimonial-review-card">
-                        <div class="star-rating-indicator" aria-label="5 Star Rating">★★★★★</div>
-                        <p class="testimonial-body-text">"The real-time Looker dashboards give our leadership team absolute transparency. We can track conversion attribution paths accurately down to individual keyword points."</p>
-                        <div class="testimonial-author-profile">
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'><circle cx='25' cy='25' r='25' fill='%23DDD'/></svg>" alt="Elena Rostova Avatar" class="author-avatar" width="50" height="50">
-                            <div class="author-metadata">
-                                <cite class="author-name">Elena Rostova</cite>
-                                <span class="author-company-role">Growth Officer, FinTech Core</span>
-                            </div>
-                        </div>
-                    </blockquote>
-
-                    <!-- Review 6 -->
-                    <blockquote class="testimonial-review-card">
-                        <div class="star-rating-indicator" aria-label="5 Star Rating">★★★★★</div>
-                        <p class="testimonial-body-text">"Their toll-free cloud setup and custom IVR routing modernized our client service workflows, instantly driving a measurable increase in overall user review metrics."</p>
-                        <div class="testimonial-author-profile">
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'><circle cx='25' cy='25' r='25' fill='%23DDD'/></svg>" alt="Kabir Mehta Avatar" class="author-avatar" width="50" height="50">
-                            <div class="author-metadata">
-                                <cite class="author-name">Kabir Mehta</cite>
-                                <span class="author-company-role">Operations Lead, Prime Care Clinics</span>
-                            </div>
-                        </div>
-                    </blockquote>
-
+        <div class="testimonials-cards-grid-layout">
+            
+            <blockquote class="testimonial-review-card">
+                <div class="star-rating-indicator" aria-label="5 Star Rating">★★★★★</div>
+                <p class="testimonial-body-text">"Right Ads completely overhauled our client acquisition pipeline. Within four months, our active organic search traffic surged by 220%, completely reshaping our pipeline dynamics."</p>
+                <div class="testimonial-author-profile">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150&q=80" alt="Rajesh Kumar Avatar" class="author-avatar" width="50" height="50" style="border-radius: 50%; object-fit: cover;">
+                    <div class="author-metadata">
+                        <cite class="author-name">Rajesh Kumar</cite>
+                        <span class="author-company-role">CEO, TechVantage Logistics</span>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </blockquote>
 
+            <blockquote class="testimonial-review-card">
+                <div class="star-rating-indicator" aria-label="5 Star Rating">★★★★★</div>
+                <p class="testimonial-body-text">"Their Google Ads approach is incredibly scientific. Vikram and his team reduced our blended customer acquisition costs by 45% while managing to scale our daily budget tiers higher."</p>
+                <div class="testimonial-author-profile">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80" alt="Sarah Jenkins Avatar" class="author-avatar" width="50" height="50" style="border-radius: 50%; object-fit: cover;">
+                    <div class="author-metadata">
+                        <cite class="author-name">Sarah Jenkins</cite>
+                        <span class="author-company-role">VP of Marketing, ElevateSaaS Inc.</span>
+                    </div>
+                </div>
+            </blockquote>
+
+            <blockquote class="testimonial-review-card">
+                <div class="star-rating-indicator" aria-label="5 Star Rating">★★★★★</div>
+                <p class="testimonial-body-text">"We selected Right Ads for our custom web platform engineering and corporate branding. The design standard is world-class, heavily optimized for high functional performance."</p>
+                <div class="testimonial-author-profile">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150&q=80" alt="Amit Sharma Avatar" class="author-avatar" width="50" height="50" style="border-radius: 50%; object-fit: cover;">
+                    <div class="author-metadata">
+                        <cite class="author-name">Amit Sharma</cite>
+                        <span class="author-company-role">Founder, Aura Premium Retail</span>
+                    </div>
+                </div>
+            </blockquote>
+
+            <blockquote class="testimonial-review-card">
+                <div class="star-rating-indicator" aria-label="5 Star Rating">★★★★★</div>
+                <p class="testimonial-body-text">"Navigating sovereign registrations like NSIC and MSME was seamless. Their dedicated corporate consulting wing handled our entire audit framework effortlessly."</p>
+                <div class="testimonial-author-profile">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&h=150&q=80" alt="Devendra Singh Avatar" class="author-avatar" width="50" height="50" style="border-radius: 50%; object-fit: cover;">
+                    <div class="author-metadata">
+                        <cite class="author-name">Devendra Singh</cite>
+                        <span class="author-company-role">Managing Director, Bharat Forgings Ltd.</span>
+                    </div>
+                </div>
+            </blockquote>
+
+            <blockquote class="testimonial-review-card">
+                <div class="star-rating-indicator" aria-label="5 Star Rating">★★★★★</div>
+                <p class="testimonial-body-text">"The real-time Looker dashboards give our leadership team absolute transparency. We can track conversion attribution paths accurately down to individual keyword points."</p>
+                <div class="testimonial-author-profile">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150&q=80" alt="Elena Rostova Avatar" class="author-avatar" width="50" height="50" style="border-radius: 50%; object-fit: cover;">
+                    <div class="author-metadata">
+                        <cite class="author-name">Elena Rostova</cite>
+                        <span class="author-company-role">Growth Officer, FinTech Core</span>
+                    </div>
+                </div>
+            </blockquote>
+
+            <blockquote class="testimonial-review-card">
+                <div class="star-rating-indicator" aria-label="5 Star Rating">★★★★★</div>
+                <p class="testimonial-body-text">"Their toll-free cloud setup and custom IVR routing modernized our client service workflows, instantly driving a measurable increase in overall user review metrics."</p>
+                <div class="testimonial-author-profile">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&h=150&q=80" alt="Kabir Mehta Avatar" class="author-avatar" width="50" height="50" style="border-radius: 50%; object-fit: cover;">
+                    <div class="author-metadata">
+                        <cite class="author-name">Kabir Mehta</cite>
+                        <span class="author-company-role">Operations Lead, Prime Care Clinics</span>
+                    </div>
+                </div>
+            </blockquote>
+
+        </div>
+    </div>
+</section>
 
         <!-- ================================================ -->
         <!-- FOUNDER MESSAGE SECTION                          -->

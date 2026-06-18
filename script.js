@@ -24,9 +24,9 @@ class RightAdsApp {
         this.nodes = {
             preloader: document.querySelector('.preloader'),
             navbar: document.querySelector('.navbar'),
-            navLinks: document.querySelectorAll('.nav-link'),
+            navLinks: document.querySelectorAll('.nav-menu-link'),
             mobileToggle: document.querySelector('.mobile-toggle'),
-            navMenu: document.querySelector('.nav-menu'),
+            navMenu: document.querySelector('.nav-menu-list'),
             sections: document.querySelectorAll('section[id]'),
             counters: document.querySelectorAll('.counter-value'),
             portfolioItems: document.querySelectorAll('.portfolio-item'),
@@ -153,9 +153,15 @@ class RightAdsApp {
      */
     initSmoothScroll() {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = document.querySelector(anchor.getAttribute('href'));
+    anchor.addEventListener('click', (e) => {
+
+        const href = anchor.getAttribute('href');
+
+        if (href === '#') return;
+
+        e.preventDefault();
+
+        const target = document.querySelector(href);
                 if (target) {
                     const headerOffset = 80;
                     const elementPosition = target.getBoundingClientRect().top;
@@ -660,3 +666,20 @@ function sendWhatsAppLead() {
     let whatsappUrl = `https://wa.me/918377072990?text=${message}`;
     window.open(whatsappUrl, '_blank');
 }
+const bgSlides = document.querySelectorAll(".bg-slide");
+
+let currentBg = 0;
+
+setInterval(() => {
+
+    bgSlides[currentBg].classList.remove("active");
+
+    currentBg++;
+
+    if(currentBg >= bgSlides.length){
+        currentBg = 0;
+    }
+
+    bgSlides[currentBg].classList.add("active");
+
+}, 4000);
