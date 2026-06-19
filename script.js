@@ -683,3 +683,60 @@ setInterval(() => {
     bgSlides[currentBg].classList.add("active");
 
 }, 4000);
+const themeToggle = document.getElementById("themeToggle");
+
+if(themeToggle){
+
+    if(localStorage.getItem("theme") === "dark"){
+        document.body.classList.add("dark-mode");
+        themeToggle.innerHTML = "☀️";
+    }
+
+    themeToggle.addEventListener("click", function(){
+
+        document.body.classList.toggle("dark-mode");
+
+        if(document.body.classList.contains("dark-mode")){
+            localStorage.setItem("theme","dark");
+            themeToggle.innerHTML = "☀️";
+        }else{
+            localStorage.setItem("theme","light");
+            themeToggle.innerHTML = "🌙";
+        }
+
+    });
+
+}
+function closeVideo() {
+
+    alert("Close clicked");
+
+    const video = document.getElementById("promoVideo");
+
+    video.pause();
+    video.currentTime = 0;
+
+    document.getElementById("floatingVideo").style.display = "none";
+}
+
+function toggleVideo() {
+
+    const video = document.getElementById("promoVideo");
+
+    if (video.paused) {
+        video.play();
+    } else {
+        video.pause();
+    }
+}
+history.scrollRestoration = "auto";
+function toggleTheme() {
+
+    document.body.classList.toggle("dark-mode");
+
+    if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("theme", "dark");
+    } else {
+        localStorage.setItem("theme", "light");
+    }
+}

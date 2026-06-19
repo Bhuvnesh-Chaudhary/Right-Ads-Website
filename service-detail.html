@@ -7,8 +7,43 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="style.css">
     <style>
+        body.dark-mode {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+body.dark-mode .nav-placeholder,
+body.dark-mode .features-box,
+body.dark-mode .sticky-media-wrapper,
+body.dark-mode .lead-capture-form-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+body.dark-mode .service-lead-text,
+body.dark-mode .feature-item,
+body.dark-mode .form-label-text {
+    color: #cbd5e1 !important;
+}
+
+body.dark-mode .service-title,
+body.dark-mode .form-heading {
+    color: white !important;
+}
+
+body.dark-mode .form-input-field,
+body.dark-mode .form-textarea-box {
+    background: #0f172a !important;
+    color: white !important;
+    border-color: #334155 !important;
+}
+
+body.dark-mode #form-service-name {
+    background: #334155 !important;
+    color: white !important;
+}
         :root {
             --primary-color: #2563eb;
             --primary-hover: #1d4ed8;
@@ -80,14 +115,14 @@
                 
                 <div class="lead-capture-form-card">
                     <h2 class="form-heading">Request a Custom Proposal</h2>
-                    <form action="#" method="POST">
+                    <form id="leadForm">
                         <div class="form-group-block">
                             <label class="form-label-text">Full Name *</label>
-                            <input type="text" class="form-input-field" placeholder="Your Name" required>
+                            <input type="text" id="name" class="form-input-field" placeholder="Your Name" required>
                         </div>
                         <div class="form-group-block">
                             <label class="form-label-text">Email Address *</label>
-                            <input type="email" class="form-input-field" placeholder="name@company.com" required>
+                            <input type="email" id="email" class="form-input-field" placeholder="name@company.com" required>
                         </div>
                         <div class="form-group-block">
                             <label class="form-label-text">Selected Service</label>
@@ -95,7 +130,7 @@
                         </div>
                         <div class="form-group-block">
                             <label class="form-label-text">Project Brief</label>
-                            <textarea class="form-textarea-box" rows="4" placeholder="Describe your requirement..."></textarea>
+                            <textarea id="message" class="form-textarea-box" rows="4"></textarea>
                         </div>
                         <button type="submit" class="submit-proposal-btn">Send Message</button>
                     </form>
@@ -107,12 +142,17 @@
     <script>
         const servicesData = {
             seo: {
-                badge: "Organic Growth",
-                title: "Search Engine Optimization",
-                desc: "Dominate organic search results. Our advanced technical SEO frameworks, strategic content clusters, and authoritative link building accelerate qualified inbound funnels.",
-                img: "https://images.unsplash.com/photo-1571721795195-a4ca2d93ffb8?q=80&w=600&auto=format&fit=crop",
-                features: ["Comprehensive Keyword Intent Research", "On-Page & Technical Audit", "Authority Backlink Clusters", "Monthly Traffic Analytics Reports"]
-            },
+    badge: "Organic Growth",
+    title: "Search Engine Optimization",
+    desc: "Dominate organic search results. Our advanced technical SEO frameworks, strategic content clusters, and authoritative link building accelerate qualified inbound funnels.",
+    img: "./images/seo-banner.png",
+    features: [
+        "Comprehensive Keyword Intent Research",
+        "On-Page & Technical Audit",
+        "Authority Backlink Clusters",
+        "Monthly Traffic Analytics Reports"
+    ]
+},
             ppc: {
                 badge: "Performance Marketing",
                 title: "Google Ads (PPC) Management",
@@ -217,5 +257,57 @@
             document.title = data.title + " - Right Ads";
         }
     </script>
+    <script>
+
+document.getElementById("leadForm").addEventListener("submit", async function(e) {
+
+    e.preventDefault();
+
+    console.log("FORM SUBMITTED");
+
+    const name = document.querySelector('input[type="text"]').value;
+    const email = document.querySelector('input[type="email"]').value;
+    const service = document.getElementById("form-service-name").value;
+    const message = document.querySelector("textarea").value;
+
+    console.log({name,email,service,message});
+
+    const response = await fetch("http://localhost:5000/api/leads/submit", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name,
+            email,
+            service,
+            message
+        })
+    });
+
+    console.log("RESPONSE:", response);
+
+    const data = await response.json();
+
+    console.log("DATA:", data);
+
+    alert(data.message);
+});
+
+</script>
+    <!-- <script src="script.js"></script> -->
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const savedTheme = localStorage.getItem("theme");
+
+    
+
+    if(savedTheme === "dark"){
+        document.body.classList.add("dark-mode");
+    }
+
+});
+</script>
 </body>
 </html>

@@ -7,8 +7,9 @@
     <meta name="description" content="Grow your business digitally with Right Ads. Expert SEO, Google Ads, Branding, Website Development, and Corporate Business Certifications.">
     
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    
 </head>
+<body>
 <a href="https://wa.me/918377072990" target="_blank" class="whatsapp-btn">
     <i class="fab fa-whatsapp"></i>
 </a>
@@ -167,41 +168,6 @@
 
     </div>
 </div>
-<audio id="scroll-sound" src="https://upload.wikimedia.org/wikipedia/commons/4/47/Sound_Effect_-_Tick.mp3" preload="auto"></audio>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Code check karega ki audio element page par hai ya nahi
-        const scrollAudio = document.getElementById("scroll-sound");
-        let isPlaying = false;
-
-        if (scrollAudio) {
-            scrollAudio.volume = 0.2; // Volume ekdum clean aur soft (20%) rakha hai
-
-            // 🌟 Jaise hi user mouse wheel ghumaega ya touch scroll karega
-            window.addEventListener("scroll", function () {
-                
-                // Debounce logic: Baar-baar rapid clicks/sounds ko block karne ke liye
-                if (!isPlaying) {
-                    isPlaying = true;
-                    
-                    // Audio play call
-                    scrollAudio.play()
-                        .then(() => {
-                            // Sound khatam hote hi naye scroll feedback ke liye refresh hoga
-                            setTimeout(() => {
-                                isPlaying = false;
-                            }, 350); // 350ms ka safe gap taaki machine gun na baje
-                        })
-                        .catch(e => {
-                            console.log("Audio playing requires first touch layout:", e);
-                            isPlaying = false;
-                        });
-                }
-            }, { passive: true });
-        }
-    });
-</script>
 <body>
     
 
@@ -215,10 +181,12 @@
 
 <div class="nav-container" style="display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; margin: 0 auto; padding: 25px 20px; gap: 40px;">
     
+    
     <a href="index.html" style="display: flex; align-items: center; gap: 15px; text-decoration: none; color: #0d7bad; font-weight: bold; font-size: 26px; white-space: nowrap; flex-shrink: 0;">
-        <span style="letter-spacing: 0.5px;">Welcome To</span>
-        <img src="images/logo.jpg" alt="Logo" style="height: 80px; width: auto; object-fit: contain; border-radius: 6px;">
-    </a>
+    
+    <img id="logo-light" src="images/logo.jpg" alt="Right Ads Logo" style="height: 80px; width: auto; object-fit: contain; border-radius: 6px;">
+    <img id="logo-dark" src="images/logo-dark.jpeg" alt="Right Ads Dark Logo" style="height: 80px; width: auto; object-fit: contain; border-radius: 6px; display: none;">
+</a>
 
             <!-- Main Navigation Menu -->
             <nav class="main-navigation" aria-label="Primary Navigation">
@@ -271,8 +239,13 @@
             </nav>
 
             <!-- Navigation Actions -->
+            
             <div class="header-action-buttons">
-                <a href="#contact" class="btn btn-secondary nav-btn-call">Call Now</a>
+                <button id="themeToggle" class="theme-toggle">
+        🌙
+    </button>
+                
+                <a href="tel:+918377072990" class="btn btn-secondary nav-btn-call">Call Now</a>
                 <a href="#contact" class="btn btn-primary nav-btn-proposal">Get Proposal</a>
             </div>
             
@@ -305,7 +278,7 @@
                 <div class="hero-statistics-grid">
     <div class="stat-card-item">
     <span class="stat-metric-number counter-value">500</span><span class="stat-metric-number">+</span>
-    <span class="stat-metric-label" style="color: #053c8a !important;">Global Clients</span>
+    <span class="stat-metric-label" style="color: #475569 !important;">Global Clients</span>
 </div>
     <div class="stat-card-item">
         <span class="stat-metric-number counter-value">11</span><span class="stat-metric-number">+</span>
@@ -320,16 +293,18 @@
     <div class="stat-card-item">
         <span class="stat-metric-number counter-value">1000</span><span class="stat-metric-number">+</span>
     <span class="stat-metric-label" style="color: #475569 !important;">Projects Completed</span>
-    </div>
-<img src="images/ChatGPT Image Jun 17, 2026, 07_58_03 PM.png"
-     class="hero-bg-image"
-     alt="Digital Marketing">
-     
+    
+</div>
+</div>
 </div>
 </div>
 
+<div class="hero-illustration-right">
+            <img src="./images/hero-reel.png" class="hero-media-image" alt="Right Ads Presentation">
+        </div>
+        </div>
 
-        </section>
+</section>
 
 
         <!-- ================================================ -->
@@ -999,6 +974,56 @@
             </div>
         </div>
     </footer>
+    <div class="floating-video" id="floatingVideo">
 
+    <button class="close-video" onclick="closeVideo()">
+        ×
+    </button>
+
+    <video id="promoVideo" controls>
+        <source src="./videos/rightads-video.mp4" type="video/mp4">
+    </video>
+
+    
+
+</div>
+    <script src="script.js"></script>
+    
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const themeButton = document.getElementById('themeToggle');
+    const lightLogo = document.getElementById('logo-light');
+    const darkLogo = document.getElementById('logo-dark');
+
+    // 1. Ek function banate hain jo sahi logo check karke show karega
+    function updateLogo() {
+        // Yeh check karega ki website abhi dark mode mein hai ya nahi
+        // (Yeh aapki body class ya dark background ko auto-detect kar lega)
+        const isDarkMode = document.body.classList.contains('dark-theme') || 
+                        document.body.classList.contains('dark-mode') || 
+                        document.body.getAttribute('data-theme') === 'dark';
+
+        if (isDarkMode) {
+            lightLogo.style.setProperty('display', 'none', 'important');
+            darkLogo.style.setProperty('display', 'block', 'important');
+        } else {
+            lightLogo.style.setProperty('display', 'block', 'important');
+            darkLogo.style.setProperty('display', 'none', 'important');
+        }
+    }
+
+    // 2. Page load hote hi ek baar logo check karo
+    if (lightLogo && darkLogo) {
+        updateLogo();
+
+        // 3. Jab bhi toggle button par click ho, 50 miliseconds ke baad logo refresh karo
+        if (themeButton) {
+            themeButton.addEventListener('click', function () {
+                setTimeout(updateLogo, 50); 
+            });
+        }
+    }
+});
+</script>
 </body>
 </html>

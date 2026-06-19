@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Right Ads Admin Panel</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            padding:30px;
+        }
+
+        h1{
+            margin-bottom:20px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th,td{
+            border:1px solid #ddd;
+            padding:12px;
+            text-align:left;
+        }
+
+        th{
+            background:#2563eb;
+            color:white;
+        }
+
+        tr:nth-child(even){
+            background:#f5f5f5;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Right Ads Leads</h1>
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Service</th>
+            <th>Message</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+
+    <tbody id="leadTable"></tbody>
+
+</table>
+
+<script>
+
+async function loadLeads(){
+
+    const response = await fetch(
+        "http://localhost:5000/api/leads"
+    );
+
+    const result = await response.json();
+
+    let html = "";
+
+    result.data.forEach(lead => {
+
+        html += `
+        <tr>
+            <td>${lead.name}</td>
+            <td>${lead.email}</td>
+            <td>${lead.service}</td>
+            <td>${lead.message}</td>
+            <td>${new Date(lead.createdAt).toLocaleString()}</td>
+        </tr>
+        `;
+
+    });
+
+    document.getElementById("leadTable").innerHTML = html;
+}
+
+loadLeads();
+
+</script>
+
+</body>
+</html>
