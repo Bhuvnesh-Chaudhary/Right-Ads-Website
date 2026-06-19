@@ -740,3 +740,19 @@ function toggleTheme() {
         localStorage.setItem("theme", "light");
     }
 }
+
+
+window.addEventListener("load", () => {
+
+    setTimeout(() => {
+
+        const loader =
+            document.getElementById("fluid-loader");
+
+        if(loader){
+            loader.classList.add("hide");
+        }
+
+    }, 1800);
+
+});

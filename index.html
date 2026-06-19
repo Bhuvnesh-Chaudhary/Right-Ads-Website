@@ -10,6 +10,11 @@
     
 </head>
 <body>
+    <div id="fluid-loader">
+    <div class="fluid fluid-1"></div>
+    <div class="fluid fluid-2"></div>
+    <div class="fluid fluid-3"></div>
+</div>
 <a href="https://wa.me/918377072990" target="_blank" class="whatsapp-btn">
     <i class="fab fa-whatsapp"></i>
 </a>
@@ -184,8 +189,15 @@
     
     <a href="index.html" style="display: flex; align-items: center; gap: 15px; text-decoration: none; color: #0d7bad; font-weight: bold; font-size: 26px; white-space: nowrap; flex-shrink: 0;">
     
-    <img id="logo-light" src="images/logo.jpg" alt="Right Ads Logo" style="height: 80px; width: auto; object-fit: contain; border-radius: 6px;">
-    <img id="logo-dark" src="images/logo-dark.jpeg" alt="Right Ads Dark Logo" style="height: 80px; width: auto; object-fit: contain; border-radius: 6px; display: none;">
+   <img id="logo-light"
+     src="images/logo.jpg"
+     alt="Right Ads Logo"
+     style="height: 95px; width: 180px; object-fit: contain; border-radius: 6px;">
+
+<img id="logo-dark"
+     src="images/logo-dark.jpeg"
+     alt="Right Ads Dark Logo"
+     style="height: 95px; width: 180px; object-fit: contain; border-radius: 6px; display: none;">
 </a>
 
             <!-- Main Navigation Menu -->
@@ -234,7 +246,7 @@
                             Career
                         </a>
                     </li>
-                    <li class="nav-menu-item"><a href="#contact" class="nav-menu-link">Contact</a></li>
+                    
                 </ul>
             </nav>
 
@@ -245,8 +257,19 @@
         🌙
     </button>
                 
-                <a href="tel:+918377072990" class="btn btn-secondary nav-btn-call">Call Now</a>
-                <a href="#contact" class="btn btn-primary nav-btn-proposal">Get Proposal</a>
+                <a href="tel:+918377072990" class="btn btn-secondary nav-btn-call">
+    Call Now
+</a>
+
+<a href="index.html?view=contact#contact" class="nav-menu-link">
+    Contact
+</a>
+
+<a href="./proposal.html"
+   class="btn btn-primary nav-btn-proposal">
+    Get Proposal
+</a>
+
             </div>
             
         </div>
@@ -768,7 +791,7 @@
                 <div class="contact-details-column">
                     <span class="section-eyebrow-tag">Get In Touch</span>
                     <h2 class="contact-column-title">Let's Start A Conversation</h2>
-                    <p class="contact-column-intro-text">Have an enterprise objective or digital goal? Reach out today to receive a personalized analysis from our performance marketing architecture team.</p>
+                    <p class="contact-column-intro-text">Have an enterprise objective or digital goal? Reach out today to receive a personalized analysis from our performance marketing architecture team. Our experts develop tailored digital strategies designed to increase brand visibility, generate qualified leads, and accelerate business growth. From marketing campaigns to complete digital transformation, we help businesses achieve measurable results and long-term success.</p>
                     
                     <div class="corporate-info-directory">
                         <div class="info-directory-item">
@@ -790,52 +813,9 @@
                     </div>
                 </div>
 
-                <!-- Right Side: Contact Form -->
-                <div class="contact-form-column">
-                    <div class="form-wrapper-container">
-                        <form action="#" method="POST" class="agency-lead-capture-form">
-                            
-                            <div class="form-input-group">
-                                <label for="form-user-name" class="form-field-label">Full Name *</label>
-                                <input type="text" id="form-user-name" name="client_name" class="form-field-input" placeholder="Alex Mercer" required>
-                            </div>
-
-                            <div class="form-input-group">
-                                <label for="form-user-email" class="form-field-label">Email Address *</label>
-                                <input type="email" id="form-user-email" name="client_email" class="form-field-input" placeholder="alex@enterprise.com" required>
-                            </div>
-
-                            <div class="form-input-group">
-                                <label for="form-user-phone" class="form-field-label">Phone Number *</label>
-                                <input type="tel" id="form-user-phone" name="client_phone" class="form-field-input" placeholder="+91 XXXXX XXXXX" required>
-                            </div>
-
-                            <div class="form-input-group">
-                                <label for="form-service-selection" class="form-field-label">Service Required *</label>
-                                <select id="form-service-selection" name="chosen_service" class="form-field-select" required>
-                                    <option value="" disabled selected>Select an operational vertical</option>
-                                    <option value="seo">Search Engine Optimization (SEO)</option>
-                                    <option value="google-ads">Google Ads &amp; Paid PPC</option>
-                                    <option value="smm">Social Media Marketing</option>
-                                    <option value="web-dev">Premium Website Development</option>
-                                    <option value="branding">Corporate Identity &amp; Branding</option>
-                                    <option value="certification">ISO/MSME/NSIC Certifications</option>
-                                    <option value="other">Other Growth Infrastructures</option>
-                                </select>
-                            </div>
-
-                            <div class="form-input-group">
-                                <label for="form-user-message" class="form-field-label">Project Brief / Message</label>
-                                <textarea id="form-user-message" name="client_message" class="form-field-textarea" rows="5" placeholder="Detail your project objectives, current constraints, and growth timelines..."></textarea>
-                            </div>
-
-                            <div class="form-action-container">
-                                <button type="submit" class="btn btn-large btn-primary form-submit-action-btn">Send Message</button>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
+                
+                
+                
 
             </div>
         </section>
@@ -1025,5 +1005,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 </script>
+<script>
+window.addEventListener("load", () => {
+
+    const view = new URLSearchParams(window.location.search).get("view");
+
+    if(view === "proposal") {
+
+        document.querySelector(".contact-form-card")
+            ?.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+    }
+
+    if(view === "contact") {
+
+        document.querySelector(".contact-info-column")
+            ?.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+    }
+
+});
+</script>
+
 </body>
 </html>
