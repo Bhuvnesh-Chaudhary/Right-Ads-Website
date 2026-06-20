@@ -238,6 +238,22 @@
         body.dark-mode .form-submit-action-btn:hover {
             background: #2563eb;
         }
+        #click-page-loader{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999999;
+
+    opacity:0;
+    visibility:hidden;
+}
+
+#click-page-loader.active{
+    opacity:1;
+    visibility:visible;
+}
 
         /* Bug Override */
         body.dark-mode .form-field-select,
@@ -310,7 +326,14 @@
     </style> </head>
     </style>
 </head>
+
 <body>
+    <div id="click-page-loader">
+    <div class="mid-loader-box">
+        <div class="spinning-glow-ring"></div>
+        <div class="loader-brand-text">Right Ads</div>
+    </div>
+</div>
 
 <nav class="proposal-navbar">
     <div class="nav-container">

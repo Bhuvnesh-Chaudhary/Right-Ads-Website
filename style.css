@@ -270,16 +270,25 @@ p {
    ========================================================================== */
 .site-header {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 90%;
+    max-width: 1200px;
     height: 100px;
+
+    background: rgba(247, 248, 250, 0.8);
+    backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 30px rgba(99, 102, 241, 0.15),
+        0 10px 40px rgba(0, 0, 0, 0.3);
+
     z-index: 1000;
-    background-color: rgba(245, 246, 247, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(226, 232, 240, 0.6);
-    transition: background-color var(--transition-smooth);
 }
 
 .header-container {
@@ -349,14 +358,26 @@ p {
    ========================================================================== */
 .hero-section {
     position: relative;
-    padding-top: 110px; /* 🛠️ Spacing kam ki taaki header ke baad content turant dikhe */
-    padding-bottom: 40px; /* 🛠️ Niche ki spacing kam ki taaki scroll na karna pade */
-    background-color: var(--color-bg-light);
+    padding-top: 110px; 
+    padding-bottom: 40px; 
     overflow: hidden;
-    border-bottom: 2px solid var(--color-border); 
-    min-height: calc(100vh - 80px); /* 🌟 Poora section screen ki height ke hisab se automatic adjust hoga */
+    min-height: calc(100vh - 80px); 
     display: flex;
     align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    
+    /* Dynamic Glass Mesh Background (Light Mode) */
+    background: radial-gradient(at 0% 0%, #e0f2fe 0px, transparent 50%),
+                radial-gradient(at 100% 100%, #f1f5f9 0px, transparent 50%),
+                #f8fafc;
+}
+
+/* Dark Mode adjustment for Hero Section */
+body.dark-mode .hero-section {
+    background: radial-gradient(at 100% 0%, rgba(37, 99, 235, 0.12) 0px, transparent 40%),
+                radial-gradient(at 0% 100%, rgba(96, 165, 250, 0.08) 0px, transparent 40%),
+                #0b0f19;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* Optional abstract background glow */
@@ -367,22 +388,21 @@ p {
     right: -10%;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(37,99,235,0.1) 0%, rgba(255,255,255,0) 70%);
+    background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, rgba(255,255,255,0) 70%);
     border-radius: 50%;
     z-index: 0;
 }
 
 .hero-split-layout {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr; /* 🛠️ Left text area ko thoda broad kiya taaki horizontal layout stretch ho */
-    gap: 2rem; /* 🛠️ Gap kam kiya taaki side-by-side tight fit ho */
+    grid-template-columns: 1.2fr 0.8fr; 
+    gap: 2rem; 
     align-items: center;
     position: relative;
     z-index: 1;
     width: 100%;
 }
 
-/* 🌟 Is selector se left text block bina layout tode ek horizontal container ki tarah flow karega */
 .hero-split-layout > div:first-child {
     display: flex;
     flex-direction: column;
@@ -390,98 +410,102 @@ p {
 }
 
 .hero-subheading-text {
-    font-size: 1.15rem; /* 🛠️ Text size halka sa perfect kiya */
-    margin-bottom: 1.5rem; /* 🛠️ Gap reduce kiya */
-    max-width: 95%; /* 🛠️ Width badhayi taaki horizontal spread ho */
+    font-size: 1.15rem; 
+    margin-bottom: 1.5rem; 
+    max-width: 95%; 
     line-height: 1.5;
 }
 
 .hero-action-group {
     display: flex;
     gap: 1rem;
-    margin-bottom: 2rem; /* 🛠️ Niche stats ke beech ka gap maintain kiya */
+    margin-bottom: 2rem; 
 }
 
-/* Stats Container Grid */
-/* 🛠️ 1. Grid hata kar Flexbox lagaya taaki cards ko left side me restrict kar sakein */
 .hero-statistics-grid {
     display: flex;
-    flex-wrap: nowrap;     /* Ek hi line me rahenge */
-    gap: 0.5rem;           /* Cards ke beech ka gap ekdum minimum (8px) kar diya */
+    flex-wrap: nowrap;    
+    gap: 0.5rem;          
     padding-top: 1rem;
-    max-width: 420px;      /* 🌟 CRITICAL CHANGED: Poore stats block ki chaudai fixed kar di taaki ye fail kar image tak na jaye */
+    max-width: 420px;      
     width: 100%;
 }
 
-/* 🛠️ 2. Cards ko tight horizontal frame me fix kiya */
-.stat-card-item {
-    flex: 1;               /* Sabko barabar jagah milegi */
-    min-width: 0;          /* Text overflow ya card stretch block karega */
-    background: var(--color-bg-white, #ffffff); 
-    padding: 0.5rem 0.25rem; /* 🌟 CHANGED: Padding aur tight kar di (Top/Bottom 8px, Left/Right 4px) */
-    border: 1px solid var(--color-border);     
-    border-radius: 8px;                  
-    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.02); 
-    text-align: center;                        
+/* 🛠️ Stats Card Glassmorphism Fix */
+.stats-card {
+    background: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04) !important;
+    transition: background 0.3s, border-color 0.3s;
 }
 
-/* 🛠️ 3. Numbers ko ekdum sleek font-size diya */
+/* Dark Mode Stats Card */
+body.dark-mode .stats-card {
+    background: rgba(30, 41, 59, 0.35) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
 .stat-metric-number {
-    font-size: 1.25rem;    /* 🌟 CHANGED: Size aur kam kiya (Ab ekdum tight fit ho jayega) */
+    font-size: 1.25rem;    
     font-weight: 800;
     color: var(--color-text-main);
     line-height: 1;
     margin-bottom: 0.15rem;
 }
 
-/* 🛠️ Label ko chhota aur crisp kiya */
 .stat-metric-label {
-    font-size: 0.7rem;     /* 🌟 CHANGED: Text ekdum small aur professional clean layout me */
+    font-size: 0.7rem;     
     color: var(--color-text-p);
     font-weight: 500;
-    white-space: nowrap;   /* Text break hokar niche nahi bhagega */
+    white-space: nowrap;   
     overflow: hidden;
-    text-overflow: ellipsis; /* Agar text bada hoga toh automatic dot-dot (...) lag jayega, layout nahi tootega */
+    text-overflow: ellipsis; 
 }
 
+/* Right Side Image Zone Glass Holder */
 .hero-illustration-placeholder {
-    background: var(--color-bg-white);
+    background: rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04) !important;
     padding: 0.75rem;
-    border: 1px solid rgba(226, 232, 240, 0.5);
     animation: floating 6s ease-in-out infinite;
-    max-height: 450px; /* 🛠️ Image zone ko constrain kiya taaki layout compress rahe */
+    max-height: 450px; 
     display: flex;
     align-items: center;
 }
 
+body.dark-mode .hero-illustration-placeholder {
+    background: rgba(15, 23, 42, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3) !important;
+}
+
 .hero-media-image {
     border-radius: var(--radius-md);
-    width: 1000px; /* 450 se kam */
+    width: 1000px; 
     height: auto;
     object-fit: contain;
-    transform: translateX(100px); /* right shift */
+    transform: translateX(100px); 
     animation: floating 4s ease-in-out infinite;
-}
-@keyframes floating {
-    0% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-12px);
-    }
-
-    100% {
-        transform: translateY(0px);
-    }
 }
 /* ==========================================================================
    TRUSTED BY SECTION
    ========================================================================== */
 .trusted-by-section {
     border-bottom: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+}
+
+body.dark-mode .trusted-by-section {
+    background: rgba(11, 15, 25, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .trusted-section-title {
@@ -524,38 +548,73 @@ p {
     gap: 2rem;
 }
 
+/* 🛠️ Glassmorphic Service Cards */
 .service-card-item {
-    background-color: var(--color-bg-white);
-    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: 2.5rem;
-    transition: all var(--transition-smooth);
     position: relative;
     overflow: hidden;
+    
+    /* Glass Effect (Light Mode) */
+    background: rgba(255, 255, 255, 0.45) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03) !important;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.3s, background 0.3s;
 }
 
+/* Dark Mode Service Cards */
+body.dark-mode .service-card-item {
+    background: rgba(30, 41, 59, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Hover Behavior - Layout untouched, pure visual lift */
 .service-card-item:hover {
     transform: translateY(-8px);
-    box-shadow: var(--shadow-xl);
-    border-color: transparent;
+    background: rgba(255, 255, 255, 0.6) !important;
+    border-color: rgba(37, 99, 235, 0.3) !important; /* Subtle blue edge glow */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06) !important;
 }
 
+body.dark-mode .service-card-item:hover {
+    background: rgba(30, 41, 59, 0.45) !important;
+    border-color: rgba(96, 165, 250, 0.25) !important; /* Neon blue edge glow */
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Icons box inside glass cards */
 .service-icon-wrapper {
     width: 60px;
     height: 60px;
-    background-color: var(--color-bg-light);
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.75rem;
     margin-bottom: 1.5rem;
-    transition: background-color var(--transition-smooth);
+    transition: all var(--transition-smooth);
+}
+
+body.dark-mode .service-icon-wrapper {
+    background-color: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .service-card-item:hover .service-icon-wrapper {
     background-color: rgba(37, 99, 235, 0.1);
     color: var(--color-primary);
+    transform: scale(1.05);
+}
+
+body.dark-mode .service-card-item:hover .service-icon-wrapper {
+    background-color: rgba(96, 165, 250, 0.15);
 }
 
 .service-card-title {
@@ -1061,105 +1120,202 @@ p {
 /* ==========================================================================
    FOOTER SECTION
    ========================================================================== */
-.site-corporate-footer {
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+
+.site-corporate-footer{
     padding-top: 2rem;
+    background: #f8fafc;
+    color: #0f172a;
+    transition: all 0.3s ease;
 }
 
-.footer-multi-column-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
-    gap: 3rem;
+/* DARK MODE */
+body.dark-mode .site-corporate-footer{
+    background: #0f172a;
+    color: #f8fafc;
 }
 
-.footer-brand-logo {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--color-bg-white);
-    display: block;
-    margin-bottom: 1rem;
+.footer-multi-column-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr 1.5fr;
+    gap:3rem;
 }
 
-.footer-brand-description-text {
-    color: var(--color-text-muted);
-    font-size: 0.9375rem;
-    margin-bottom: 1.5rem;
+.footer-brand-logo-img{
+    height:80px;
+    width:auto;
+    display:block;
+    margin-bottom:1rem;
 }
 
-.social-channels-container {
-    display: flex;
-    gap: 1rem;
+.footer-brand-description-text{
+    color:#64748b;
+    font-size:0.9375rem;
+    margin-bottom:1.5rem;
+    line-height:1.7;
 }
 
-.social-icon-anchor {
-    color: var(--color-text-muted);
-    font-size: 0.875rem;
-    transition: color var(--transition-fast);
+body.dark-mode .footer-brand-description-text{
+    color:#94a3b8;
 }
 
-.social-icon-anchor:hover {
-    color: var(--color-bg-white);
+.social-channels-container{
+    display:flex;
+    gap:1rem;
 }
 
-.footer-widget-title {
-    color: var(--color-bg-white);
-    font-size: 1.125rem;
-    margin-bottom: 1.5rem;
+.social-icon-anchor{
+    color:#64748b;
+    font-size:0.875rem;
+    transition:0.3s;
 }
 
-.footer-links-directory li {
-    margin-bottom: 0.75rem;
+.social-icon-anchor:hover{
+    color:#2563eb;
 }
 
-.footer-nav-anchor {
-    color: var(--color-text-muted);
-    font-size: 0.9375rem;
+body.dark-mode .social-icon-anchor{
+    color:#94a3b8;
 }
 
-.footer-nav-anchor:hover {
-    color: var(--color-primary);
-    padding-left: 4px;
+body.dark-mode .social-icon-anchor:hover{
+    color:#60a5fa;
 }
 
-.footer-address-block {
-    font-style: normal;
-    color: var(--color-text-muted);
-    font-size: 0.9375rem;
+.footer-widget-title{
+    color:#0f172a;
+    font-size:1.125rem;
+    font-weight:700;
+    margin-bottom:1.5rem;
 }
 
-.footer-inline-link {
-    color: var(--color-text-muted);
+body.dark-mode .footer-widget-title{
+    color:#ffffff;
 }
 
-.footer-inline-link:hover {
-    color: var(--color-bg-white);
+.footer-links-directory li{
+    margin-bottom:0.75rem;
 }
 
-.footer-secondary-legal-bar {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1.5rem 0;
-    margin-top: 2rem;
+.footer-nav-anchor{
+    color:#64748b;
+    font-size:0.9375rem;
+    text-decoration:none;
+    transition:0.3s;
 }
 
-.legal-bar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
+.footer-nav-anchor:hover{
+    color:#2563eb;
+    padding-left:4px;
 }
 
-.copyright-disclaimer-text, .legal-link-anchor {
-    color: var(--color-text-muted);
-    font-size: 0.875rem;
+body.dark-mode .footer-nav-anchor{
+    color:#94a3b8;
 }
 
-.legal-links-group {
-    display: flex;
-    gap: 1.5rem;
+body.dark-mode .footer-nav-anchor:hover{
+    color:#60a5fa;
 }
 
-.legal-link-anchor:hover {
-    color: var(--color-bg-white);
+.footer-address-block{
+    font-style:normal;
+    color:#64748b;
+    font-size:0.9375rem;
+    line-height:1.8;
+}
+
+body.dark-mode .footer-address-block{
+    color:#94a3b8;
+}
+
+.footer-inline-link{
+    color:#64748b;
+    text-decoration:none;
+}
+
+.footer-inline-link:hover{
+    color:#2563eb;
+}
+
+body.dark-mode .footer-inline-link{
+    color:#94a3b8;
+}
+
+body.dark-mode .footer-inline-link:hover{
+    color:#60a5fa;
+}
+
+.footer-secondary-legal-bar{
+    border-top:1px solid rgba(100,116,139,0.2);
+    padding:1.5rem 0;
+    margin-top:2rem;
+}
+
+body.dark-mode .footer-secondary-legal-bar{
+    border-top:1px solid rgba(255,255,255,0.08);
+}
+
+.legal-bar-container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:1rem;
+}
+
+.copyright-disclaimer-text,
+.legal-link-anchor{
+    color:#64748b;
+    font-size:0.875rem;
+}
+
+body.dark-mode .copyright-disclaimer-text,
+body.dark-mode .legal-link-anchor{
+    color:#94a3b8;
+}
+
+.legal-links-group{
+    display:flex;
+    gap:1.5rem;
+}
+
+.legal-link-anchor{
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.legal-link-anchor:hover{
+    color:#2563eb;
+}
+
+body.dark-mode .legal-link-anchor:hover{
+    color:#60a5fa;
+}
+
+/* MOBILE */
+
+@media(max-width:992px){
+
+    .footer-multi-column-grid{
+        grid-template-columns:1fr 1fr;
+        gap:2rem;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .footer-multi-column-grid{
+        grid-template-columns:1fr;
+    }
+
+    .legal-bar-container{
+        flex-direction:column;
+        text-align:center;
+    }
+
 }
 
 /* ==========================================================================
@@ -2148,132 +2304,225 @@ body.dark-theme .logo-dark {
         opacity: 0;
     }
 }
-#blob-loader{
+/* ==========================================================
+   VIBRANT PRELOADER - CORAL VERSION
+   ========================================================== */
+
+#vibrant-preload-screen{
     position: fixed;
     inset: 0;
-    background: #0f172a;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 99999;
+
+    background: #050b1d;
+
+    z-index: 999998;
     overflow: hidden;
 }
 
-.blob{
-    width: 120px;
-    height: 120px;
-    background: linear-gradient(
-        135deg,
-        #3b82f6,
-        #2563eb,
-        #60a5fa
-    );
+.liquid-loader-wrapper{
+    position: relative;
 
-    border-radius: 40% 60% 55% 45%;
-    animation: elasticBlob 2s ease-in-out forwards;
-    box-shadow: 0 0 50px rgba(59,130,246,.6);
+    width: 260px;
+    height: 300px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-@keyframes elasticBlob{
+.colorful-drop{
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    background: #ff6b6b;
+
+    filter: blur(12px);
+
+    box-shadow:
+        0 0 30px #ff6b6b,
+        0 0 60px #ff6b6b,
+        0 0 100px #ff6b6b,
+        0 0 140px rgba(255,107,107,0.6);
+
+    animation: coralPulse 2s ease-in-out infinite;
+}
+
+/* Blue aur Purple hide */
+.drop-blue,
+.drop-purple{
+    display: none;
+}
+
+.loading-text-glow{
+    position: absolute;
+
+    top: 230px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    white-space: nowrap;
+
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-shadow:
+        0 0 10px #ff6b6b,
+        0 0 20px #ff6b6b,
+        0 0 35px #ff6b6b;
+
+    z-index: 10;
+}
+
+@keyframes coralPulse{
 
     0%{
-        transform: scale(0);
-        border-radius: 40% 60% 55% 45%;
-    }
-
-    25%{
-        transform: scale(1.2);
-        border-radius: 65% 35% 45% 55%;
+        transform: scale(0.75);
+        opacity: 0.35;
     }
 
     50%{
-        transform: scale(1);
-        border-radius: 35% 65% 60% 40%;
+        transform: scale(1.15);
+        opacity: 1;
     }
 
     100%{
-        transform: scale(25);
-        border-radius: 50%;
+        transform: scale(0.75);
+        opacity: 0.35;
     }
 }
 
+/* Exit Animation */
 
-
-
-
-
-
-
-#fluid-loader{
-    position: fixed;
-    inset: 0;
-    background: #0f172a;
-    z-index: 99999;
-    overflow: hidden;
-}
-
-.fluid{
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(30px);
-}
-
-.fluid-1{
-    width: 220px;
-    height: 220px;
-    background: #3b82f6;
-    left: 35%;
-    top: 45%;
-    animation: merge1 2s ease-in-out forwards;
-}
-
-.fluid-2{
-    width: 180px;
-    height: 180px;
-    background: #2563eb;
-    left: 55%;
-    top: 35%;
-    animation: merge2 2s ease-in-out forwards;
-}
-
-.fluid-3{
-    width: 200px;
-    height: 200px;
-    background: #60a5fa;
-    left: 50%;
-    top: 60%;
-    animation: merge3 2s ease-in-out forwards;
-}
-
-@keyframes merge1{
-    0%{
-        transform: translate(-300px,-150px) scale(.3);
-    }
-    100%{
-        transform: scale(18);
-    }
-}
-
-@keyframes merge2{
-    0%{
-        transform: translate(250px,-200px) scale(.3);
-    }
-    100%{
-        transform: scale(18);
-    }
-}
-
-@keyframes merge3{
-    0%{
-        transform: translate(-150px,250px) scale(.3);
-    }
-    100%{
-        transform: scale(18);
-    }
-}
-
-#fluid-loader.hide{
+#vibrant-preload-screen.exit-active{
     opacity: 0;
     visibility: hidden;
-    transition: .6s ease;
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
 }
+/* ==========================================================
+   CLICK PAGE LOADER
+   ========================================================== */
+
+#click-page-loader{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(255,255,255,0.92);
+
+    backdrop-filter:blur(15px);
+    -webkit-backdrop-filter:blur(15px);
+
+    z-index:999999;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:all .35s ease;
+}
+
+#click-page-loader.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.mid-loader-box{
+    position:relative;
+
+    width:140px;
+    height:140px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.spinning-glow-ring{
+    position:absolute;
+
+    width:140px;
+    height:140px;
+
+    border-radius:50%;
+
+    border:4px solid rgba(59,130,246,.15);
+    border-top:4px solid #2563eb;
+
+    animation:spinLoader .9s linear infinite;
+
+    box-shadow:
+        0 0 25px rgba(37,99,235,.25);
+}
+
+.loader-brand-text{
+    font-size:1rem;
+    font-weight:800;
+
+    letter-spacing:.12em;
+    text-transform:uppercase;
+
+    color:#2563eb;
+
+    z-index:2;
+}
+
+@keyframes spinLoader{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+/* --- FOOTER Brand LOGO PERFECT DISPLAY --- */
+.footer-logo-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.footer-logo-light,
+.footer-logo-dark {
+    max-width: 160px; /* Logo ka size perfectly regular rahega */
+    height: auto;
+    transition: all 0.3s ease;
+}
+
+/* ☀️ DEFAULT (Light Mode): Dark wale logo ko chupa kar rakho */
+.footer-logo-dark {
+    display: none !important;
+}
+
+.footer-logo-light {
+    display: block !important;
+}
+
+/* 🚀 JAB BODY PAR .DARK-MODE CLASS AAYE (Strict Show/Hide Logic) 🚀 */
+body.dark-mode .footer-logo-light {
+    display: none !important; /* Light wala chhup gaya */
+}
+
+body.dark-mode .footer-logo-dark {
+    display: block !important; /* Dark wala samne aa gaya */
+}
+
+

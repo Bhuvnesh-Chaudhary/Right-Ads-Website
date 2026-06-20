@@ -672,7 +672,10 @@ let currentBg = 0;
 
 setInterval(() => {
 
-    bgSlides[currentBg].classList.remove("active");
+    
+    if (bgSlides && bgSlides[currentBg]) {
+        bgSlides[currentBg].classList.remove("active");
+    }
 
     currentBg++;
 
@@ -680,7 +683,10 @@ setInterval(() => {
         currentBg = 0;
     }
 
-    bgSlides[currentBg].classList.add("active");
+    // 🌟 2. Yeh line badal kar bhi 'if' laga de
+    if (bgSlides && bgSlides[currentBg]) {
+        bgSlides[currentBg].classList.add("active");
+    }
 
 }, 4000);
 const themeToggle = document.getElementById("themeToggle");
@@ -742,17 +748,170 @@ function toggleTheme() {
 }
 
 
+document.addEventListener("DOMContentLoaded", () => {
+
+    const preloadScreen =
+        document.getElementById("vibrant-preload-screen");
+
+    const pageLoader =
+        document.getElementById("click-page-loader");
+
+    // HOME PAGE LOADER
+    if (preloadScreen) {
+
+        setTimeout(() => {
+
+            preloadScreen.classList.add("exit-active");
+
+            setTimeout(() => {
+
+                // preloadScreen.remove();
+
+                document.body.classList.add("site-ready");
+
+            }, 600);
+
+        }, 1500);
+
+    } else {
+
+        document.body.classList.add("site-ready");
+    }
+
+    // PAGE TRANSITION LOADER
+    const links = document.querySelectorAll("a");
+
+    links.forEach(link => {
+
+        link.addEventListener("click", function(e) {
+
+            const href = this.getAttribute("href");
+
+            if (
+                !href ||
+                href.startsWith("#") ||
+                href.startsWith("mailto:") ||
+                href.startsWith("tel:") ||
+                this.target === "_blank"
+            ) {
+                return;
+            }
+
+            e.preventDefault();
+
+            if (pageLoader) {
+                pageLoader.classList.add("active");
+            }
+
+            setTimeout(() => {
+                window.location.href = href;
+            }, 800);
+        });
+
+    });
+
+});
+
 window.addEventListener("load", () => {
+
+    const preloader =
+        document.getElementById("vibrant-preload-screen");
+
+    if (!preloader) return;
+
+    if (sessionStorage.getItem("homeLoaded")) {
+
+        preloader.style.display = "none";
+        document.body.classList.add("site-ready");
+
+        return;
+    }
+
+    sessionStorage.setItem("homeLoaded", "true");
 
     setTimeout(() => {
 
-        const loader =
-            document.getElementById("fluid-loader");
+        preloader.classList.add("exit-active");
 
-        if(loader){
-            loader.classList.add("hide");
-        }
+        setTimeout(() => {
 
-    }, 1800);
+            document.body.classList.add("site-ready");
 
+        }, 600);
+
+    }, 1500);
+
+});
+// --- FORM SUBMIT TO NODE BACKEND ---
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('#services-lead-form') || document.querySelector('form'); // Apne form ke hisab se selector dekh lena
+
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Form ke inputs se data uthaye (Ensure karna unme name attribute sahi ho)
+            const formData = {
+                name: form.querySelector('[name="name"]')?.value || form.querySelector('#lead-name')?.value,
+                email: form.querySelector('[name="email"]')?.value || form.querySelector('#lead-email')?.value,
+                service: form.querySelector('[name="service"]')?.value || form.querySelector('#lead-service')?.value,
+                message: form.querySelector('[name="message"]')?.value || form.querySelector('#lead-message')?.value
+            };
+
+            try {
+                // Backend endpoint hit kara port 5000 par
+                const response = await fetch('http://127.0.0.1:5000/api/leads/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('🎉 Lead Saved! Right Ads team will contact you soon.');
+                    form.reset();
+                } else {
+                    alert('❌ Error: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Submission Error:', error);
+                alert('Backend server band hai shayad, pehle terminal check kar bhai!');
+            }
+        });
+    }
+});
+// --- WHATSAPP CLICK TRACKING LOGIC ---
+// --- WHATSAPP CLICK TRACKING (ANTI-KILL VERSION) ---
+document.addEventListener('DOMContentLoaded', () => {
+    const whatsappButton = document.querySelector('.whatsapp-btn');
+
+    if (whatsappButton) {
+        whatsappButton.addEventListener('click', async function(e) {
+            // 1. Pehle default transition ko roko taaki request kill na ho
+            e.preventDefault(); 
+            
+            console.log('🔄 Click detected! Sending data to backend port 5000...');
+
+            try {
+                // 2. Backend ko hit karo aur wait karo (await)
+                await fetch('http://127.0.0.1:5000/api/leads/track-whatsapp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                console.log('✅ Data successfully logged in MongoDB!');
+            } catch (error) {
+                console.error('❌ Network/Backend Error:', error);
+            }
+
+            // 3. Data send hone ke baad ab user ko WhatsApp par bhej do
+            // Yeh wahi link uthayega jo tere HTML ke href mein dala hai (918377072990)
+            const whatsappUrl = this.getAttribute('href');
+            window.open(whatsappUrl, '_blank'); 
+        });
+    }
 });
