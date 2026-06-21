@@ -505,17 +505,22 @@ document.addEventListener("DOMContentLoaded", function() {
     let currentSlide = 0;
 
     function showNextSlide() {
-        // Purane slide ko hide karo
-        slides[currentSlide].style.opacity = '0';
-        slides[currentSlide].style.pointerEvents = 'none';
-        
-        // Agla index calculate karo
-        currentSlide = (currentSlide + 1) % slides.length;
-        
-        // Naye slide ko show karo
-        slides[currentSlide].style.opacity = '1';
-        slides[currentSlide].style.pointerEvents = 'auto';
+    // Pehle check karo ki slides array exist karta hai aur usme elements hain ya nahi
+    if (!slides || slides.length === 0 || !slides[currentSlide]) {
+        return; // Agar slides nahi hain to function ko yahin rok do, aage mat badho
     }
+
+    // Purane slide ko hide karo
+    slides[currentSlide].style.opacity = '0';
+    slides[currentSlide].style.pointerEvents = 'none';
+    
+    // Agla index calculate karo
+    currentSlide = (currentSlide + 1) % slides.length;
+    
+    // Naye slide ko show karo
+    slides[currentSlide].style.opacity = '1';
+    slides[currentSlide].style.pointerEvents = 'auto';
+}
 
     // Har 4 second (4000ms) mein automatic slide change hogi
     setInterval(showNextSlide, 4000);

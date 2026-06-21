@@ -3,12 +3,13 @@ const router = express.Router();
 const Lead = require("../models/Lead");
 
 // 1. POST Route: Lead Submit karne ke liye
+// Asli URL: http://localhost:5000/api/leads/submit
 router.post("/submit", async (req, res) => {
     try {
         const lead = await Lead.create(req.body);
         res.status(201).json({
             success: true,
-            message: "Lead Saved",
+            message: "Lead Saved Successfully",
             data: lead
         });
     } catch (error) {
@@ -19,7 +20,8 @@ router.post("/submit", async (req, res) => {
     }
 });
 
-// 2. GET Route: Saare leads dekhne ke liye (Isse upar kar diya)
+// 2. GET Route: Saare leads dekhne ke liye
+// Asli URL: http://localhost:5000/api/leads/
 router.get("/", async (req, res) => {
     try {
         const leads = await Lead.find().sort({ createdAt: -1 });
@@ -36,10 +38,8 @@ router.get("/", async (req, res) => {
     }
 });
 
-// 🌟 CRITICAL: Yeh hamesha sabse end mein aayega!
-module.exports = router;
-
-// 💬 WhatsApp Click Track karne ke liye endpoint
+// 3. 💬 WhatsApp Click Track karne ke liye endpoint
+// Asli URL: http://localhost:5000/api/leads/track-whatsapp
 router.post("/track-whatsapp", async (req, res) => {
     try {
         // Hum log khud se ek fake client format bana kar database mein bhej rahe hain
@@ -47,7 +47,8 @@ router.post("/track-whatsapp", async (req, res) => {
             name: "WhatsApp Visitor",
             email: "whatsapp-click@rightads.com",
             service: "Direct WhatsApp Inquiry",
-            message: "User clicked on the WhatsApp button to chat with the agency."
+            brief: "User clicked on the WhatsApp button to chat with the agency." 
+            // Note: Agar tumhare Mongoose schema mein 'message' field nahi hai toh use 'brief' likhna variable ke according.
         });
 
         res.status(201).json({
@@ -62,3 +63,6 @@ router.post("/track-whatsapp", async (req, res) => {
         });
     }
 });
+
+// 🌟 CRITICAL FIX: Yeh hamesha pure file ke SABSE END MEIN aayega!
+module.exports = router;

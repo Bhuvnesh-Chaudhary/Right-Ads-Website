@@ -5,333 +5,399 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Proposal - Right Ads</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background: #f8fafc;
+    color: #0f172a;
+    padding-top: 110px; /* Top Navbar bada kiya isliye body padding badha di */
+}
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        /* --- LIGHT MODE COLORS (DEFAULT) --- */
-        body {
-            background: #f8fafc;
-            color: #0f172a;
-        }
-
-        /* Nav Bar Setup */
-        .proposal-navbar {
+/* ========================================================
+   1. PREMIUM TOP NAVBAR (Height badha di aur Clean kiya)
+   ======================================================== */
+.proposal-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    background: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
-    padding: 10px 0; /* Padding thoda kam kiya taaki bada logo fit aaye */
+    height: 95px; /* Height 80px se badha kar 95px kar di */
     display: flex;
     justify-content: center;
-    position: sticky;
-    top: 0;
+    align-items: center;
     z-index: 1000;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.8);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
 }
 
-        /* Nav container jo form ke size (700px) se align rahega */
-        .nav-container {
-            width: 100%;
-            max-width: 700px;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.nav-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-
-        /* Logo size bada kiya */
-        .logo-img {
-    height: 85px; /* 65px se badha kar 85px kar diya hai ekdum solid look ke liye */
-    width: auto;
-    max-width: 100%; /* Mobile screen par wrap hone ke liye */
+.logo-img {
+    height: 110px; /* Logo ka size bada aur premium kiya */
+    width: 400px;
     object-fit: contain;
     display: block;
-}
-@media (max-width: 600px) {
-    .logo-img {
-        height: 60px; /* Mobile par thoda adjust kiya taaki bar burst na ho */
-    }
-    .proposal-navbar {
-        padding: 5px 0;
-    }
+    transition: transform 0.3s ease;
 }
 
-        .form-wrapper-container {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-        }
-
-        .page-heading h1 {
-            color: #0f172a;
-        }
-
-        .page-heading p {
-            color: #64748b;
-        }
-
-        .form-field-label {
-            color: #0f172a;
-        }
-
-        .form-field-input,
-        .form-field-select,
-        .form-field-textarea {
-            background: #ffffff !important;
-            color: #0f172a !important;
-            border: 1px solid #cbd5e1;
-        }
-
-        .back-btn {
-            color: #2563eb;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            transition: color 0.2s;
-        }
-
-        .back-btn:hover {
-            color: #1d4ed8;
-        }
-
-
-        /* --- DARK MODE COLORS --- */
-        body.dark-mode {
-            background: #0b0f19;
-            color: #f8fafc;
-        }
-
-        body.dark-mode .proposal-navbar {
-            background: #111827;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        body.dark-mode .form-wrapper-container {
-            background: linear-gradient(135deg, #1e293b 0%, #111827 100%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        body.dark-mode .page-heading h1 {
-            color: #ffffff;
-        }
-
-        body.dark-mode .page-heading p {
-            color: #94a3b8;
-        }
-
-        body.dark-mode .form-field-label {
-            color: #ffffff;
-        }
-
-        body.dark-mode .form-field-input,
-        body.dark-mode .form-field-select,
-        body.dark-mode .form-field-textarea {
-            background: #0b0f19 !important;
-            color: #ffffff !important;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        body.dark-mode .form-field-input:focus,
-        body.dark-mode .form-field-select:focus,
-        body.dark-mode .form-field-textarea:focus {
-            border-color: #60a5fa;
-        }
-
-        body.dark-mode .back-btn {
-            color: #60a5fa;
-        }
-
-        body.dark-mode .back-btn:hover {
-            color: #93c5fd;
-        }
-
-
-        /* --- STRUCTURAL LAYOUT STYLES --- */
-        .proposal-container {
-            width: 100%;
-            max-width: 700px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .form-wrapper-container {
-            padding: 40px;
-            border-radius: 24px;
-        }
-
-        .page-heading {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .page-heading h1 {
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .form-input-group {
-            margin-bottom: 20px;
-        }
-
-        .form-field-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .form-field-input,
-        .form-field-select,
-        .form-field-textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border-radius: 12px;
-            font-size: 15px;
-            outline: none;
-        }
-
-        .form-action-container {
-            margin-top: 25px;
-        }
-
-        .form-submit-action-btn {
-            width: 100%;
-            border: none;
-            background: #2563eb;
-            color: white;
-            padding: 16px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        body.dark-mode .form-submit-action-btn {
-            background: #3b82f6;
-        }
-
-        .form-submit-action-btn:hover {
-            background: #1d4ed8;
-        }
-
-        body.dark-mode .form-submit-action-btn:hover {
-            background: #2563eb;
-        }
-        #click-page-loader{
-    position:fixed;
-    inset:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:999999;
-
-    opacity:0;
-    visibility:hidden;
+.logo-img:hover {
+    transform: scale(1.03);
 }
 
-#click-page-loader.active{
-    opacity:1;
-    visibility:visible;
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #0f172a;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 20px 30px; /* Button bada kiya */
+    border-radius: 50px;
+    background: rgba(15, 23, 42, 0.05);
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    transition: all 0.3s ease;
 }
 
-        /* Bug Override */
-        body.dark-mode .form-field-select,
-        .form-field-select {
-            background-image: none !important;
-            appearance: select !important;
-            -webkit-appearance: select !important;
-            -moz-appearance: select !important;
-            background-repeat: no-repeat !important;
-        }
+.back-btn:hover {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+    transform: translateY(-2px);
+}
 
-        @media (max-width: 600px) {
-            .logo-img {
-                height: 50px;
-            }
-        }
-        /* ... baki saari CSS upar rahegi ... */
+/* ========================================================
+   2. PREMIUM VERTICAL SIDEBAR (Right Shift aur Top Adjust)
+   ======================================================== */
+.vertical-navbar, .side-navbar {
+    position: fixed;
+    left: 40px; /* Thoda right ki taraf khiska diya pehle se */
+    top: 120px; /* Top Navbar ke exact neeche set kiya taaki chupe nahi */
+    width: 250px;
+    height: calc(100vh - 150px); /* Height auto adjusted */
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    z-index: 999;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.04);
+    transition: all 0.3s ease;
+}
 
-        /* Bug Override (Jo pehle kiya tha) */
-        body.dark-mode .form-field-select,
-        .form-field-select {
-            background-image: none !important;
-            appearance: select !important;
-            -webkit-appearance: select !important;
-            -moz-appearance: select !important;
-            background-repeat: no-repeat !important;
-        }
+.vertical-logo {
+    padding: 25px 20px;
+    display: flex;
+    justify-content: center;
+}
 
-        @media (max-width: 600px) {
-            .logo-img {
-                height: 50px;
-            }
-        }
+.vertical-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 16px;
+    flex: 1;
+}
 
-        /* --- YAHAN PASTE KAR DE BHAI (TUMHARA NEW ANIMATION CODE) --- */
-        .form-wrapper-container {
-            transform-origin: center center;
-            animation: premiumReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            will-change: transform, opacity, filter;
-        }
+.vertical-menu a {
+    text-decoration: none;
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    color: #475569;
+    transition: all 0.25s ease;
 
-        .proposal-navbar {
-            animation: navSlideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+    /* --- NAYA BORDER CODE (LIGHT MODE) --- */
+    border: 1px solid rgba(15, 23, 42, 0.08); /* Ekdum subtle elegant border */
+    margin-bottom: 4px; /* Buttons ke beech thoda gap taaki borders overlap na karein */
+}
 
-        @keyframes premiumReveal {
-            0% {
-                opacity: 0;
-                transform: translateY(40px) scale(0.96);
-                filter: blur(8px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-                filter: blur(0);
-            }
-        }
+.vertical-menu a:hover {
+    background: rgba(37, 99, 235, 0.06);
+    color: #2563eb;
+    transform: translateX(6px);
+}
 
-        @keyframes navSlideDown {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+.vertical-menu a.active {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #ffffff !important;
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.15);
+}
 
-    </style> </head>
-    </style>
+/* Sidebar ke sath layout automatic perfect balance rahega */
+.page-content {
+    margin-left: 320px;
+    width: calc(100% - 320px);
+    padding: 40px;
+}
+
+/* ========================================================
+   3. FORM STRUCTURE
+   ======================================================== */
+.proposal-container {
+    width: 100%;
+    max-width: 680px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.form-wrapper-container {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+    padding: 40px;
+    border-radius: 24px;
+    transform-origin: center center;
+    animation: premiumReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.page-heading h1 {
+    font-size: 34px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    color: #0f172a;
+}
+
+.page-heading p { color: #64748b; font-size: 15px; }
+.form-input-group { margin-bottom: 24px; }
+.form-field-label { display: block; margin-bottom: 8px; font-weight: 600; color: #334155; }
+
+.form-field-input,
+.form-field-select,
+.form-field-textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border: 1px solid #cbd5e1;
+}
+
+.form-field-input:focus,
+.form-field-select:focus,
+.form-field-textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.form-submit-action-btn {
+    width: 100%;
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* ========================================================
+4. 🌟 DARK MODE SHIFTS (Anti-Overlap Guard)
+   ======================================================== */
+body.dark-mode {
+    /* Main Home Page ka exact premium dark navy blue color */
+    background: #0b1120 !important;
+    color: #f8fafc;
+}
+
+body.dark-mode .proposal-navbar {
+    /* Navbar ko main background se dynamic transparent match kiya */
+    background: rgba(11, 17, 32, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .back-btn {
+    color: #f8fafc;
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .back-btn:hover {
+    background: #3b82f6;
+    border-color: #3b82f6;
+}
+
+body.dark-mode .vertical-navbar, body.dark-mode .side-navbar {
+    /* Left sidebar thoda sa solid layer overlay premium look ke liye */
+    background: rgba(17, 24, 43, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .vertical-menu a {
+    color: #94a3b8;
+}
+
+body.dark-mode .vertical-menu a:hover {
+    background: rgba(59, 130, 246, 0.08);
+    color: #3b82f6;
+}
+
+body.dark-mode .vertical-menu a.active {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+body.dark-mode .form-wrapper-container {
+    /* Form card thoda sa light navy shade taaki screen depth professional lage */
+    background: #111a2e;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .page-heading h1 {
+    color: #ffffff;
+}
+
+body.dark-mode .form-field-label {
+    color: #cbd5e1;
+}
+
+body.dark-mode .form-field-input,
+body.dark-mode .form-field-select,
+body.dark-mode .form-field-textarea {
+    /* Form inputs ka inner background exact pure body color se overlap kiya */
+    background: #0b1120 !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .form-submit-action-btn {
+    background: #3b82f6;
+}
+
+/* ========================================================
+   5. RESPONSIVENESS & ANIMATIONS
+   ======================================================== */
+@keyframes premiumReveal {
+    0% { opacity: 0; transform: translateY(30px) scale(0.98); filter: blur(4px); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@media (max-width: 1100px) {
+    .vertical-navbar, .side-navbar { display: none; }
+    .page-content { margin-left: 0; width: 100%; padding: 20px; }
+}
+
+/* Actions Wrapper Alignment */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px; /* Dono buttons ke beech spacing */
+}
+
+/* Theme Button Base Design */
+.theme-toggle-btn {
+    background: rgba(15, 23, 42, 0.05);
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    color: #0f172a;
+    width: 44px;
+    height: 44px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+    background: rgba(15, 23, 42, 0.1);
+    transform: scale(1.05);
+}
+
+/* Icon visibility setup */
+.theme-toggle-btn .sun-icon { display: none; }  /* Default Light mode mein moon dikhega */
+.theme-toggle-btn .moon-icon { display: block; }
+
+/* --- DARK MODE SHIFTS FOR TOGGLE BUTTON --- */
+body.dark-mode .theme-toggle-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.05);
+    color: #f8fafc;
+}
+
+body.dark-mode .theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Dark mode aane par icons swap ho jayenge */
+body.dark-mode .theme-toggle-btn .sun-icon { display: block; }
+body.dark-mode .theme-toggle-btn .moon-icon { display: none; }
+</style>
 </head>
+<body>
+
+    <aside class="vertical-navbar">
+
+    <div class="vertical-logo">
+        
+    </div>
+
+    <nav class="vertical-menu">
+
+        <a href="index.html#home" >Home</a>
+
+        <a href="index.html#about">About</a>
+
+        <a href="index.html#services">Services</a>
+
+        <a href="index.html#certificates">Certificates</a>
+
+        <a href="index.html#portfolio">Portfolio</a>
+
+        <a href="index.html#reviews">Reviews</a>
+
+        <a href="career.html">Career</a>
+
+        <a href="proposal.html" class="active">Get Proposal</a>
+
+    </nav>
+
+</aside>
+
+    <main class="page-content">
+        <!-- Proposal form yahan rahega -->
+    </main>
+
+</body>
 
 <body>
     <div id="click-page-loader">
     <div class="mid-loader-box">
         <div class="spinning-glow-ring"></div>
-        <div class="loader-brand-text">Right Ads</div>
+        <div class="loader-brand-text"></div>
     </div>
 </div>
 
@@ -339,10 +405,35 @@
     <div class="nav-container">
         <div class="logo-container">
             <a href="index.html">
-                <img id="navbar-logo" src="images/logo.jpg" alt="Right Ads Logo" class="logo-img">
+                <img id="navbar-logo" src="images/logo.png" alt="Right Ads Logo" class="logo-img">
             </a>
         </div>
-        <a href="index.html" class="back-btn">← Back to Home</a>
+        <div class="nav-actions">
+            <div class="nav-actions">
+    <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle Theme">
+        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+    
+</div>
+            <a href="index.html" class="back-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Back to Home
+            </a>
+        </div>
     </div>
 </nav>
 
@@ -353,47 +444,49 @@
             <p>Tell us about your project and we'll get back to you.</p>
         </div>
 
-        <form action="#" method="POST" class="agency-lead-capture-form">
-            <div class="form-input-group">
-                <label for="form-user-name" class="form-field-label">Full Name *</label>
-                <input type="text" id="form-user-name" class="form-field-input" required>
-            </div>
+        <form id="proposalForm" class="agency-lead-capture-form">
+    
+    <div class="form-input-group">
+        <label for="form-user-name" class="form-field-label">Full Name *</label>
+        <input type="text" id="form-user-name" name="name" class="form-field-input" required>
+    </div>
 
-            <div class="form-input-group">
-                <label for="form-user-email" class="form-field-label">Email Address *</label>
-                <input type="email" id="form-user-email" class="form-field-input" required>
-            </div>
+    <div class="form-input-group">
+        <label for="form-user-email" class="form-field-label">Email Address *</label>
+        <input type="email" id="form-user-email" name="email" class="form-field-input" required>
+    </div>
 
-            <div class="form-input-group">
-                <label for="form-user-phone" class="form-field-label">Phone Number *</label>
-                <input type="tel" id="form-user-phone" class="form-field-input" required>
-            </div>
+    <div class="form-input-group">
+        <label for="form-user-phone" class="form-field-label">Phone Number *</label>
+        <input type="tel" id="form-user-phone" name="phone" class="form-field-input" required>
+    </div>
 
-            <div class="form-input-group">
-                <label for="form-service-selection" class="form-field-label">Service Required *</label>
-                <select id="form-service-selection" class="form-field-select" required>
-                    <option value="" disabled selected>Select Service</option>
-                    <option>Search Engine Optimization (SEO)</option>
-                    <option>Google Ads & Paid PPC</option>
-                    <option>Social Media Marketing</option>
-                    <option>Premium Website Development</option>
-                    <option>Corporate Identity & Branding</option>
-                    <option>ISO/MSME/NSIC Certifications</option>
-                    <option>Other Growth Infrastructures</option>
-                </select>
-            </div>
+    <div class="form-input-group">
+        <label for="form-service-selection" class="form-field-label">Service Required *</label>
+        <select id="form-service-selection" name="service" class="form-field-select" required>
+            <option value="" disabled selected>Select Service</option>
+            <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
+            <option value="Google Ads & Paid PPC">Google Ads & Paid PPC</option>
+            <option value="Social Media Marketing">Social Media Marketing</option>
+            <option value="Premium Website Development">Premium Website Development</option>
+            <option value="Corporate Identity & Branding">Corporate Identity & Branding</option>
+            <option value="ISO/MSME/NSIC Certifications">ISO/MSME/NSIC Certifications</option>
+            <option value="Other Growth Infrastructures">Other Growth Infrastructures</option>
+        </select>
+    </div>
 
-            <div class="form-input-group">
-                <label for="form-user-message" class="form-field-label">Project Brief</label>
-                <textarea id="form-user-message" class="form-field-textarea" rows="5"></textarea>
-            </div>
+    <div class="form-input-group">
+    <label for="form-user-message" class="form-field-label">Project Brief</label>
+    
+    <textarea id="form-user-message" name="message" class="form-field-textarea" rows="5"></textarea>
+</div>
 
-            <div class="form-action-container">
-                <button type="submit" class="form-submit-action-btn">
-                    Send Message
-                </button>
-            </div>
-        </form>
+    <div class="form-action-container">
+        <button type="submit" class="form-submit-action-btn">
+            Send Message
+        </button>
+    </div>
+</form>
     </div>
 </div>
 
@@ -404,11 +497,32 @@
 
     if(localStorage.getItem("theme") === "dark"){
         document.body.classList.add("dark-mode");
-        logoImg.src = "images/logo-dark.jpeg"; // Dark mode logo path
+        logoImg.src = "images/logo-dark.png"; // Dark mode logo path
     } else {
         document.body.classList.remove("dark-mode");
-        logoImg.src = "images/logo.jpg"; // Light mode logo path
+        logoImg.src = "images/logo.png"; // Light mode logo path
     }
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+
+themeToggleBtn.addEventListener('click', () => {
+    // Body par dark-mode class toggle karein
+    document.body.classList.toggle('dark-mode');
+    
+    // User ki choice ko localStorage mein save karein taaki page refresh par change na ho
+    if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+});
+
+// Page load hote hi check karein ki user ne pehle kya select kiya tha
+window.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+});
 </script>
 
 </body>

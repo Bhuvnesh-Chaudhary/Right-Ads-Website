@@ -1970,27 +1970,47 @@ body.dark-mode .premium-centered-card{
 
     pointer-events: none;
 }
-.theme-toggle{
-    width:42px;
-    height:42px;
-    border:none;
-    border-radius:50%;
-    background:#f1f5f9;
-    cursor:pointer;
-    font-size:20px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:0.3s;
-    margin-right:10px;
+.theme-toggle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 10px; /* Tumhara margin yahan jodd diya */
+
+    /* 🌟 Dusri image jaisa premium transparent look */
+    background: rgba(255, 255, 255, 0.03); 
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    color: #94a3b8; /* SVG/Font Icon ka default subtle color */
 }
 
-.theme-toggle:hover{
-    transform:translateY(-2px);
+.theme-toggle:hover {
+    /* Tumhara floating effect aur sath mein background glow */
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
 }
 
-.theme-toggle i{
-    color:#111827;
+/* Agar tum HTML mein FontAwesome Icon (<i>) use kar rahe ho */
+.theme-toggle i {
+    font-size: 20px;
+    color: inherit; /* Apne aap parent ka color white/gray pakad lega */
+    transition: transform 0.3s;
+}
+
+.theme-toggle:hover i {
+    transform: rotate(15deg); /* Hover par halka sa ghumne wala effect */
+}
+
+/* 🌟 Light mode active hone par (Jab website light ho jaye) */
+body.light-mode .theme-toggle {
+    background: #f1f5f9; /* Tab ye white circle banega jo ki light mode mein sahi lagega */
+    border: 1px solid #cbd5e1;
+    color: #111827;
 }
 /* =========================
    DARK MODE
