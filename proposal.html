@@ -448,7 +448,7 @@ body.dark-mode .theme-toggle-btn .moon-icon { display: none; }
     
     <div class="form-input-group">
         <label for="form-user-name" class="form-field-label">Full Name *</label>
-        <input type="text" id="form-user-name" name="name" class="form-field-input" required>
+        <input type="text" id="form-user-name" name="fullName" class="form-field-input" required>
     </div>
 
     <div class="form-input-group">
@@ -465,21 +465,16 @@ body.dark-mode .theme-toggle-btn .moon-icon { display: none; }
         <label for="form-service-selection" class="form-field-label">Service Required *</label>
         <select id="form-service-selection" name="service" class="form-field-select" required>
             <option value="" disabled selected>Select Service</option>
-            <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
-            <option value="Google Ads & Paid PPC">Google Ads & Paid PPC</option>
-            <option value="Social Media Marketing">Social Media Marketing</option>
-            <option value="Premium Website Development">Premium Website Development</option>
-            <option value="Corporate Identity & Branding">Corporate Identity & Branding</option>
-            <option value="ISO/MSME/NSIC Certifications">ISO/MSME/NSIC Certifications</option>
-            <option value="Other Growth Infrastructures">Other Growth Infrastructures</option>
-        </select>
+            <option value="SEO">Search Engine Optimization (SEO)</option>
+            <option value="PPC">Google Ads & Paid PPC</option>
+            <option value="SMM">Social Media Marketing</option>
+            </select>
     </div>
 
     <div class="form-input-group">
-    <label for="form-user-message" class="form-field-label">Project Brief</label>
-    
-    <textarea id="form-user-message" name="message" class="form-field-textarea" rows="5"></textarea>
-</div>
+        <label for="form-user-message" class="form-field-label">Project Brief</label>
+        <textarea id="form-user-message" name="brief" class="form-field-textarea" rows="5"></textarea>
+    </div>
 
     <div class="form-action-container">
         <button type="submit" class="form-submit-action-btn">

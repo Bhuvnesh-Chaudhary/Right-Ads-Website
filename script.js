@@ -6,6 +6,7 @@
  * Features: ES6+, Performance Optimized, Modular, Accessible
  */
 
+
 "use strict";
 
 class RightAdsApp {
@@ -720,14 +721,17 @@ if(themeToggle){
 }
 function closeVideo() {
 
-    alert("Close clicked");
-
     const video = document.getElementById("promoVideo");
 
     video.pause();
+
     video.currentTime = 0;
 
-    document.getElementById("floatingVideo").style.display = "none";
+    video.src = "";
+
+    video.load();
+
+    document.getElementById("floatingVideo").remove();
 }
 
 function toggleVideo() {
@@ -754,98 +758,45 @@ function toggleTheme() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
+    const preloadScreen = document.getElementById("vibrant-preload-screen");
+    const pageLoader = document.getElementById("click-page-loader");
 
-    const preloadScreen =
-        document.getElementById("vibrant-preload-screen");
-
-    const pageLoader =
-        document.getElementById("click-page-loader");
-
-    // HOME PAGE LOADER
+    // 1. HOME PAGE LOADER LOGIC
     if (preloadScreen) {
-
-        setTimeout(() => {
-
-            preloadScreen.classList.add("exit-active");
-
+        if (sessionStorage.getItem("homeLoaded")) {
+            // Agar pehle load ho chuka hai, turant hatao
+            preloadScreen.style.display = "none";
+            document.body.classList.add("site-ready");
+        } else {
+            // Pehli baar load ho raha hai
+            sessionStorage.setItem("homeLoaded", "true");
+            
             setTimeout(() => {
-
-                // preloadScreen.remove();
-
-                document.body.classList.add("site-ready");
-
-            }, 600);
-
-        }, 1500);
-
+                preloadScreen.classList.add("exit-active");
+                setTimeout(() => {
+                    preloadScreen.style.display = "none";
+                    document.body.classList.add("site-ready");
+                }, 800);
+            }, 1500);
+        }
     } else {
-
         document.body.classList.add("site-ready");
     }
 
-    // PAGE TRANSITION LOADER
+    // 2. PAGE TRANSITION LOADER (Bina change kiye wahi rakh raha hun)
     const links = document.querySelectorAll("a");
-
     links.forEach(link => {
-
         link.addEventListener("click", function(e) {
-
             const href = this.getAttribute("href");
-
-            if (
-                !href ||
-                href.startsWith("#") ||
-                href.startsWith("mailto:") ||
-                href.startsWith("tel:") ||
-                this.target === "_blank"
-            ) {
+            if (!href || href.startsWith("#") || href.startsWith("mailto:") || 
+                href.startsWith("tel:") || this.target === "_blank") {
                 return;
             }
-
             e.preventDefault();
-
-            if (pageLoader) {
-                pageLoader.classList.add("active");
-            }
-
-            setTimeout(() => {
-                window.location.href = href;
-            }, 800);
+            if (pageLoader) pageLoader.classList.add("active");
+            setTimeout(() => { window.location.href = href; }, 800);
         });
-
     });
-
-});
-
-window.addEventListener("load", () => {
-
-    const preloader =
-        document.getElementById("vibrant-preload-screen");
-
-    if (!preloader) return;
-
-    if (sessionStorage.getItem("homeLoaded")) {
-
-        preloader.style.display = "none";
-        document.body.classList.add("site-ready");
-
-        return;
-    }
-
-    sessionStorage.setItem("homeLoaded", "true");
-
-    setTimeout(() => {
-
-        preloader.classList.add("exit-active");
-
-        setTimeout(() => {
-
-            document.body.classList.add("site-ready");
-
-        }, 600);
-
-    }, 1500);
-
 });
 // --- FORM SUBMIT TO NODE BACKEND ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -917,6 +868,62 @@ document.addEventListener('DOMContentLoaded', () => {
             // Yeh wahi link uthayega jo tere HTML ke href mein dala hai (918377072990)
             const whatsappUrl = this.getAttribute('href');
             window.open(whatsappUrl, '_blank'); 
+        });
+    }
+});
+
+
+// /mobile humberger menu////
+function toggleMobileMenu(){
+
+    document
+        .querySelector(".main-navigation")
+        .classList
+        .toggle("active");
+
+}
+
+
+function showLoader(event, url) {
+    // 1. Default click behavior (direct open) ko rokein taaki animation dikhe
+    event.preventDefault();
+    
+    // 2. Loader screen ko show karein
+    const loader = document.getElementById('loader-overlay');
+    loader.classList.add('active');
+    
+    // 3. 1.5 seconds (1500ms) ke baad flyer ko naye tab mein kholein aur loader band karein
+    setTimeout(() => {
+        window.open(url, '_blank');
+        loader.classList.remove('active');
+    }, 1500);
+}
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. Service Form Handler
+    const serviceForm = document.getElementById('leadForm'); // ID match honi chahiye
+    if (serviceForm) {
+        serviceForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            // Yahan fetch '/api/leads/submit' call karo
+        });
+    }
+
+    // 2. Career Form Handler
+    const careerForm = document.getElementById('careerForm'); 
+    if (careerForm) {
+        careerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            // Yahan fetch '/api/leads/apply' call karo
+        });
+    }
+
+    // 3. Proposal Form Handler
+    const proposalForm = document.getElementById('proposalForm');
+    if (proposalForm) {
+        proposalForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            // Yahan fetch '/api/leads/proposal' call karo
         });
     }
 });

@@ -18,15 +18,17 @@
         <div class="loader-brand-text">Right Ads</div>
     </div>
 </div>
-    <div id="vibrant-preload-screen" class="active-home">
-    <div class="liquid-loader-wrapper">
-        <div class="colorful-drop drop-blue"></div>
-        <div class="colorful-drop drop-purple"></div>
-        <div class="colorful-drop drop-coral"></div>
-        <span class="loading-text-glow">
-            Right Ads | Crafting Growth...
-        </span>
+    <div id="vibrant-preload-screen" style="position: fixed; inset: 0; background: #050b1d; display: flex !important; justify-content: center; align-items: center; z-index: 999999; flex-direction: column;">
+    
+    <div class="loader-container" style="display: flex; gap: 40px; align-items: center;">
+        <div class="drop drop-blue" style="width: 40px; height: 40px; border-radius: 50%; background-color: #4facfe; box-shadow: 0 0 20px #4facfe; animation: bounce 2s infinite;"></div>
+        <div class="drop drop-purple" style="width: 40px; height: 40px; border-radius: 50%; background-color: #9b5cff; box-shadow: 0 0 20px #9b5cff; animation: bounce 2s infinite 0.3s;"></div>
+        <div class="drop drop-green" style="width: 40px; height: 40px; border-radius: 50%; background-color: #00f260; box-shadow: 0 0 20px #00f260; animation: bounce 2s infinite 0.6s;"></div>
     </div>
+
+    <div class="text-container" style="color: #fff; font-family: sans-serif; font-weight: 600; letter-spacing: 2px; text-shadow: 0 0 10px #fff; margin-top: 50px; position: absolute;">
+    Right Ads | Crafting Growth...
+</div>
 </div>
 
 <div id="main-site-content">
@@ -200,7 +202,7 @@
             
             <!-- Agency Logo -->
 
-<div class="nav-container" style="display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; margin: 0 auto; padding: 25px 20px; gap: 40px;">
+<div class="nav-container" style="display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1400px; margin: 0 auto; padding: 25px 20px; gap: 40px;">
     
     
     <a href="index.html" style="display: flex; align-items: center; gap: 15px; text-decoration: none; color: #0d7bad; font-weight: bold; font-size: 26px; white-space: nowrap; flex-shrink: 0;">
@@ -208,13 +210,16 @@
    <img id="logo-light"
      src="images/logo.png"
      alt="Right Ads Logo"
-     style="height: 100px; width: 190px; object-fit: contain; border-radius: 6px;">
+     style="height: 120px; width: 300px; object-fit: contain; border-radius: 6px;">
 
 <img id="logo-dark"
      src="images/logo-dark.png"
      alt="Right Ads Dark Logo"
-     style="height: 120px; width: 300px; object-fit: contain; border-radius: 6px; display: none;">
+     style="height: 200px; width: 300px; object-fit: contain; border-radius: 6px; display: none;">
 </a>
+<button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+    ☰
+</button>
 
             <!-- Main Navigation Menu -->
             <nav class="main-navigation" aria-label="Primary Navigation">
@@ -262,6 +267,10 @@
                             Career
                         </a>
                     </li>
+                    <a href="./proposal.html"
+   class="btn btn-primary nav-btn-proposal">
+    Get Proposal
+</a>
                     
                 </ul>
             </nav>
@@ -269,23 +278,9 @@
             <!-- Navigation Actions -->
             
             <div class="header-action-buttons">
-                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
-    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="5"></circle>
-        <line x1="12" y1="1" x2="12" y2="3"></line>
-        <line x1="12" y1="21" x2="12" y2="23"></line>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-        <line x1="1" y1="12" x2="3" y2="12"></line>
-        <line x1="21" y1="12" x2="23" y2="12"></line>
-        <line x1="4.22" y1="19.22" x2="5.64" y2="17.78"></line>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-    </svg>
-    
-    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-    </svg>
-</button>
+                <button id="themeToggle" class="theme-toggle">
+        🌙
+    </button>
                 
                 <a href="tel:+918377072990" class="btn btn-secondary nav-btn-call">
     Call Now
@@ -293,11 +288,6 @@
 
 <a href="index.html?view=contact#contact" class="nav-menu-link">
     Contact
-</a>
-
-<a href="./proposal.html"
-   class="btn btn-primary nav-btn-proposal">
-    Get Proposal
 </a>
 
             </div>
@@ -485,6 +475,31 @@
                 </div>
             </div>
         </section>
+
+
+        <!-- Service Brochure Section Container -->
+<div class="brochure-section">
+    <div class="brochure-card">
+        <h2 class="brochure-title">Our Service Brochure</h2>
+        <p class="brochure-desc">
+            Explore our complete range of Digital Marketing, SEO, Website Development, Social Media Marketing, Google Ads and Business Growth solutions. View our detailed brochure to learn more about our services.
+        </p>
+        <!-- Button with onclick event for loader -->
+        <a href="images/service-flyer.jpeg" target="_blank" class="brochure-btn" onclick="showLoader(event, this.href)">
+            <span class="btn-icon">📄</span> View Service Brochure
+        </a>
+    </div>
+</div>
+
+<!-- Custom Fullscreen Loader Overlay -->
+<div id="loader-overlay" class="loader-overlay">
+    <div class="loader-container">
+        <div class="spinning-circle"></div>
+        <div class="loader-text-circle">
+            <span>Right Ads</span>
+        </div>
+    </div>
+</div>
 
 
         <!-- ================================================ -->
@@ -998,9 +1013,6 @@
     <video id="promoVideo" controls>
         <source src="./videos/rightads-video.mp4" type="video/mp4">
     </video>
-
-    
-
 </div>
     <script src="script.js"></script>
     

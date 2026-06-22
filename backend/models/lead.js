@@ -1,13 +1,24 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const leadSchema = new mongoose.Schema({
-    name: String,
+const LeadSchema = new mongoose.Schema({
+    // Common fields
+    fullName: String,
     email: String,
+    
+    // Career specific
+    jobType: String,
+    targetPost: String,
+    portfolioLink: String,
+    
+    // Proposal/Service specific
     phone: String,
     service: String,
-    message: String
-}, {
-    timestamps: true
+    brief: String,
+    
+    // Ye batayega ki form kahan se aaya hai
+    formType: { type: String, required: true }, // 'career' ya 'proposal'
+    
+    date: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model("Lead", leadSchema);
+module.exports = mongoose.model('Lead', LeadSchema);

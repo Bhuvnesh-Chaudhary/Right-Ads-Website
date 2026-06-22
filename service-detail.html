@@ -115,29 +115,30 @@ body.dark-mode #form-service-name {
                 
                 <div class="lead-capture-form-card">
                     <h2 class="form-heading">Request a Custom Proposal</h2>
-                    <form id="leadForm">
-                        <div class="form-group-block">
-                            <label class="form-label-text">Full Name *</label>
-                            <input type="text" id="name" class="form-input-field" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group-block">
-                            <label class="form-label-text">Email Address *</label>
-                            <input type="email" id="email" class="form-input-field" placeholder="name@company.com" required>
-                        </div>
-                        <div class="form-group-block">
-                            <label class="form-label-text">Selected Service</label>
-                            <input type="text" id="form-service-name" class="form-input-field" readonly style="background: #e2e8f0; cursor: not-allowed;">
-                        </div>
-                        <div class="form-group-block">
-                            <label class="form-label-text">Project Brief</label>
-                            <textarea id="message" class="form-textarea-box" rows="4"></textarea>
-                        </div>
-                        <button type="submit" class="submit-proposal-btn">Send Message</button>
-                    </form>
+                    <form id="leadForm" onsubmit="event.preventDefault(); submitForm(event);">
+    <div class="form-group-block">
+        <label class="form-label-text">Full Name *</label>
+        <input type="text" id="name" name="fullName" class="form-input-field" placeholder="Your Name" required>
+    </div>
+    <div class="form-group-block">
+        <label class="form-label-text">Email Address *</label>
+        <input type="email" id="email" name="email" class="form-input-field" placeholder="name@company.com" required>
+    </div>
+    <div class="form-group-block">
+        <label class="form-label-text">Selected Service</label>
+        <input type="text" id="form-service-name" name="service" class="form-input-field" readonly style="background: #e2e8f0; cursor: not-allowed;">
+    </div>
+    <div class="form-group-block">
+        <label class="form-label-text">Project Brief</label>
+        <textarea id="message" name="brief" class="form-textarea-box" rows="4"></textarea>
+    </div>
+    <button type="submit" class="submit-proposal-btn">Send Message</button>
+</form>
+
                 </div>
             </div>
         </div>
-    </div>
+
 
     <script>
         const servicesData = {
@@ -316,43 +317,9 @@ tollfree: {
     </script>
     <script>
 
-document.getElementById("leadForm").addEventListener("submit", async function(e) {
 
-    e.preventDefault();
-
-    console.log("FORM SUBMITTED");
-
-    const name = document.querySelector('input[type="text"]').value;
-    const email = document.querySelector('input[type="email"]').value;
-    const service = document.getElementById("form-service-name").value;
-    const message = document.querySelector("textarea").value;
-
-    console.log({name,email,service,message});
-
-    const response = await fetch("http://localhost:5000/api/leads/submit", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name,
-            email,
-            service,
-            message
-        })
-    });
-
-    console.log("RESPONSE:", response);
-
-    const data = await response.json();
-
-    console.log("DATA:", data);
-
-    alert(data.message);
-});
 
 </script>
-    <!-- <script src="script.js"></script> -->
     <script>
 document.addEventListener("DOMContentLoaded", function () {
 
