@@ -1,24 +1,30 @@
-const express = require('express');
-const connectDB = require('./config/db'); // Database connection
-const cors = require('cors'); // Frontend se request allow karne ke liye
-const leadRoutes = require('./routes/leadRoutes'); // Routes import kiye
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv").config();
+
+const careerRoutes = require("./routes/careerRoutes");
+const serviceRoutes = require("./routes/serviceRoutes");
+const proposalRoutes = require("./routes/proposalRoutes");
 
 const app = express();
 
-// 1. Connect to Database
-connectDB();
+app.use(cors());
+app.use(express.json());
 
-// 2. Middleware
-app.use(cors()); // Ye cross-origin requests ko handle karega
-app.use(express.json()); // Ye client se aane wale JSON data ko read karne ke liye zaruri hai
-app.use(express.urlencoded({ extended: true })); // Agar form data submit ho raha hai
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err));
 
-// 3. Routes
-// Sabhi API requests '/api/leads' se start hongi
-app.use('/api/leads', leadRoutes);
+  app.use("/api/career", careerRoutes);
+app.use("/api/service", serviceRoutes);
+app.use("/api/proposal", proposalRoutes);
 
-// 4. Server Start
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.get("/", (req, res) => {
+  res.send("Right Ads Backend Running");
+});
+
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
 });
